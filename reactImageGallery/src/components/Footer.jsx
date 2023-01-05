@@ -2,8 +2,7 @@ import React from 'react'
 
 const footer = () => {
   return (
-    <>
-       <footer>
+       <footer className=' relative h-12 bg-gray-400 top-60 text-white '>
         <span className="footer_txt1">
             Copyright(c) All Rights Reserved. 
         </span>
@@ -11,7 +10,7 @@ const footer = () => {
             Made by Samir Kumal.
         </span>
     </footer>
-    </>
+  
   )
 }
 

@@ -18,7 +18,7 @@ const content = ({Images}) => {
     // )
   return (
     <>
-      <div className="container">
+      <div className="container h-screen w-full bg-white">
         {/* {contentList} */}
         <button onClick={msg}>click here</button>
       </div>
