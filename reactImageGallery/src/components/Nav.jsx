@@ -9,7 +9,7 @@ const Nav = () => {
   };
 
   return (
-    <nav className="h-max lg:w-[100%] md:w-full sm:w-[100%]  flex justify-between items-center bg-gray-400">
+    <nav className="h-max sm:h-[90px] lg:w-screen md:w-full sm:w-[100%]  flex justify-between items-center bg-gray-400">
       <img
         src={Logo}
         alt="image-logo"
@@ -37,14 +37,9 @@ const Nav = () => {
           </svg>
         </button>
       </div>
-      // MENU ITEMS FOR THE PAGE------------------------------------------------------------------------------------------
-
-      <div className="list  p-2 h-12 lg:w-[36rem] bg- sm:w-[15rem] flex sm:flex-col translate-x-[6rem]  bg-[#151313] relative    ">
-        <ul className=" flex text-white sm:flex-col lg:flex-row  lg:static md:absolute sm:absolute flex-start ">
-
-          
-          //-----------------------------------1ST DROPDOWN----------------------------------------------
-          <Menu as="li" className=" parent w-max  w-32 h-max   ">
+      <div className="list  p-2 h-12 lg:w-max bg- sm:w-[15rem] sm:h-[300px] absolute flex sm:flex-col translate-x-[6rem]  bg-blue-500 sm:translate-y-48  relative    ">
+        <ul className=" flex text-white sm:flex-col lg:flex-row   lg:static md:absolute sm:absolute flex-start  sm:leading-10">
+          <Menu as="li" className=" parent w-max  w-32 h-max sm:relative    ">
             <Menu.Button
               
              
@@ -54,7 +49,7 @@ const Nav = () => {
               </a>
             </Menu.Button>
           
-              <Menu.Items as="ul"  className=" bg-[#151313]  w-[8rem] absolute child flex flex-col bg-pink-400 translate-y-4 text-xs p-2 leading-6  ">
+              <Menu.Items as="ul"  className=" bg-[#151313]  w-[8rem] sm:sticky absolute child flex flex-col bg-pink-400 translate-y-4 text-xs p-2 leading-6  ">
                 <li className="opacity:0.5 hover:bg-white hover:text-black"><a href="#">CAROUSEL</a></li>
                 <li className="opacity:0.5 hover:bg-white hover:text-black"><a href="#">SLIDER DETAILS</a></li>
                 <li className="opacity:0.5 hover:bg-white hover:text-black"><a href="#">MULTI SLIDESHOW</a></li>
@@ -65,13 +60,12 @@ const Nav = () => {
               </Menu.Items>
           
           </Menu>
-          //-----------------------2ND DROPDOWN ---------------------------------------------------
           <Menu as="li" className=" w-40 h-max">
             <Menu.Button  >
               <a href="#">PORTFOLIO</a>
             </Menu.Button>
           
-              <Menu.Items as="ul"  className="dropdown2 bg-[#151313] absolute w-[11rem] bg-pink-600 translate-y-4 text-xs p-2 leading-6">
+              <Menu.Items as="ul"  className="sm:sticky bg-[#151313] absolute w-[11rem]  translate-y-4 text-xs p-2 leading-6">
                 <li className="hover:bg-white  hover:text-black"><a href="#">HORIZONTAL 1 COLUMN</a></li>
                 <li className="hover:bg-white  hover:text-black"><a href="#">HORIZONTAL 2 COLUMN</a></li>
                 <li className="hover:bg-white  hover:text-black"><a href="#">HORIZONTAL3 COLUMN</a></li>
@@ -91,10 +85,10 @@ const Nav = () => {
               </Menu.Items>
          
           </Menu>
-          <li className="drp px-6">
+          <li className="drp px-6 sm:translate-x-[-0.8rem]">
             <a href="#">ABOUT</a>
           </li>
-          <li className="drp px-6">
+          <li className="drp px-6 sm:translate-x-[-0.8rem]">
             <a href="#">NEWS</a>
           </li>
           <li className="drp px-6">
