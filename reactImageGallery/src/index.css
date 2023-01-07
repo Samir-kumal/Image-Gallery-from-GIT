@@ -11,3 +11,29 @@
 body{
   background-color: #151313;
 }
+@media screen and (max-width:1021px ) {
+  .menuItems{
+    position: absolute;
+    top: 6rem;
+    right: 0;
+    width: 12rem;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    line-height: 2rem;
+    
+  }
+}
+@media screen and (max-width:420px ) {
+  .search-bar{
+    visibility: hidden;
+    
+  }
+}
+.menuItems{
+  background-color: #151313;
+  transition: all 0.3s ease;
+}
+.menuItems.open {
+  transform: translateY(0);
+}

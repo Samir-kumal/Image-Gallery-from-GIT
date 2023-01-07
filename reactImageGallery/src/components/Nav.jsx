@@ -1,16 +1,18 @@
 import React from "react";
 import Logo from "../assets/logo-pic.png";
-import { Menu } from '@headlessui/react'
+import { useState } from "react";
+import { Menu, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 const Nav = () => {
   const image = {
     height: 90,
     width: 90,
   };
+  const [isShowing, setIsShowing] = useState(false);
 
   return (
-    <nav className="h-max sm:h-[90px] lg:w-screen md:w-full sm:w-[100%]  flex justify-between items-center bg-gray-400">
-      <img
+    <nav className="h-max sm:h-[90px] lg:w-screen w-[100%]  flex justify-between items-center bg-gray-400">
+      <img className="sm:w-12 sm:h-12"
         src={Logo}
         alt="image-logo"
         height={image.height}
@@ -37,19 +39,25 @@ const Nav = () => {
           </svg>
         </button>
       </div>
-      <div className="list  p-2 h-12 lg:w-max bg- sm:w-[15rem] sm:h-[300px] absolute flex sm:flex-col translate-x-[6rem]  bg-blue-500 sm:translate-y-48  relative    ">
-        <ul className=" flex text-white sm:flex-col lg:flex-row   lg:static md:absolute sm:absolute flex-start  sm:leading-10">
-          <Menu as="li" className=" parent w-max  w-32 h-max sm:relative    ">
-            <Menu.Button
-              
-             
-            >
+      <div className="list  p-2 h-12 lg:w-max bg- sm:w-[15rem] sm:h-max  flex sm:flex-col translate-x-[6rem]  bg-blue-500 top-[10rem] relative    ">
+        <ul className=" flex text-white sm:flex-col lg:flex-row   lg:static md:absolute  flex-start  sm:leading-10">
+          <Menu as="li" className=" parent w-max  h-max sm:relative  transition duration-500 ease-linear  ">
+            <Menu.Button onClick={()=>setIsShowing((isShowing)=>!isShowing)}>
               <a href="#" className="o">
                 HOME
               </a>
             </Menu.Button>
           
-              <Menu.Items as="ul"  className=" bg-[#151313]  w-[8rem] sm:sticky absolute child flex flex-col bg-pink-400 translate-y-4 text-xs p-2 leading-6  ">
+            <Transition
+            show={isShowing}
+            enter="transition-opacity duration-75"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="transition-opacity duration-150"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+            > <Menu.Items as="ul"  className=" bg-[#151313]  w-[8rem] sm:sticky absolute child flex flex-col 
+                           transition duration-500 ease-linear  text-xs p-2 leading-6  ">
                 <li className="opacity:0.5 hover:bg-white hover:text-black"><a href="#">CAROUSEL</a></li>
                 <li className="opacity:0.5 hover:bg-white hover:text-black"><a href="#">SLIDER DETAILS</a></li>
                 <li className="opacity:0.5 hover:bg-white hover:text-black"><a href="#">MULTI SLIDESHOW</a></li>
@@ -58,6 +66,7 @@ const Nav = () => {
                 <li className="opacity:0.5 hover:bg-white hover:text-black"><a href="#">VIDEO</a></li>
                 <li className="opacity:0.5 hover:bg-white hover:text-black"> <a href="#">SLIDESHOW</a></li>
               </Menu.Items>
+              </Transition> 
           
           </Menu>
           <Menu as="li" className=" w-40 h-max">

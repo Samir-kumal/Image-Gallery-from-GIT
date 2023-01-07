@@ -1,32 +1,79 @@
-import React from "react";
-import Logo from "../assets/logo-pic.png";
-import { useState } from "react";
+import React from 'react'
+import logo from "../assets/logo.png"
+import { useState } from 'react'
+import { useEffect } from 'react'
+import { useRef } from 'react'
 
-const Navbar = () => {
-  const image = {
-    height: 90,
-    width: 90,
-  };
-  const [isOpen, setIsOpen] = useState(false);
-  const [isOpen1, setIsOpen1] = useState(false);
+const Navbar = (props) => {
+    const img = {
+        height:50,
+        width:50,
+    }
+    const [isOpen, setIsOpen] = useState(false);
+    const [isOpenSub, setIsOpenSub] = useState(false);
+    
+    let menuRef = useRef();
+    let menuRefSub = useRef();
+
+    useEffect(()=>{
+     let handler =(e)=>{
+        if (window.innerWidth < 1021 && !menuRef.current.contains(e.target)) {
+          setIsOpen(false);
+        }
+        if (!menuRefSub.current.contains(e.target)) {
+          setIsOpenSub(false);
+        }
+      }
+    document.addEventListener("mousedown", handler);
+   
+    window.addEventListener("beforeunload", () => setIsOpen(true));
+    window.addEventListener("beforeunload", () => setIsOpenSub(false));
+
+
+    return()=>{
+      document.removeEventListener("mousedown",handler);
+    }
+
+
+
+    });
+    useEffect(() => {
+      const handleResize = () => {
+        if (window.innerWidth > 1021) setIsOpen(true);
+        if (window.innerWidth < 1021) setIsOpen(false);
+        if (window.innerWidth > 1021) setIsOpenSub(true);
+        if (window.innerWidth < 1021) setIsOpenSub(false);
+      };
+      handleResize(); // Run the function once on mount
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    const [searchInput, setSearchInput] = useState('')
+
+  const handleSearch = (e) => {
+    setSearchInput(e.target.value)
+    props.onSearch(e.target.value)
+    console.log("hello")
+  }
+
+ 
+  
+    
+
   return (
-    <nav className="h-16 w-full bg-slate-600 flex justify-between items-center  ">
-      <img
-        src={Logo}
-        alt="image-logo"
-        height={image.height}
-        width={image.width}
-      />
-      <div className="searchbox h-max bg-black flex">
-        <label htmlFor="search-text">
-          {" "}
-          <i className="fa fa-search"></i>
-        </label>
-        <input type="text" className="search-text" placeholder="SEARCH.." />
-        <button>
-          <svg
-            width="42"
-            height="42"
+    <nav className='w-full h-24 bg-[#151313] relative flex items-center justify-between px-2' ref={menuRef} >
+        <div className="logo">
+            <img src={logo} alt="" height={img.height} width = {img.width} />
+        </div>
+        <div className="Search flex">
+           
+            <input className='search-bar p-2' onChange={handleSearch} value={props.value} type="text" placeholder='search' />
+           
+            <button onClick={handleSearch} className=' p-1'>
+               <svg
+            width="30"
+            height="30"
             viewBox="0 0 52 52"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -36,116 +83,33 @@ const Navbar = () => {
               fill="white"
             />
           </svg>
-        </button>
-      </div>
-      <div className="list bg-orange-400 p-2 h-12 ">
-        <ul className="flex text-white ">
-          <li className=" parent w-max bg-slate-900 w-36 h-max   ">
-            <button
-              onClick={() => setIsOpen((prev) => !prev)}
-              className="bg-black"
-            >
-              <a href="#" className="o">
-                HOME
-              </a>
             </button>
-            {isOpen && (
-              <ul className="child flex flex-col bg-pink-400 translate-y-4 text-xs p-2 leading-6  ">
-                <li>
-                  <a href="#">CAROUSEL</a>
-                </li>
-                <li>
-                  <a href="#">SLIDER DETAILS</a>
-                </li>
-                <li>
-                  <a href="#">MULTI SLIDESHOW</a>
-                </li>
-                <li>
-                  <a href="#">IMAGE</a>
-                </li>
-                <li>
-                  <a href="#">SLIDER </a>
-                </li>
-                <li>
-                  <a href="#">VIDEO</a>
-                </li>
-                <li>
-                  <a href="#">SLIDESHOW</a>
-                </li>
-              </ul>
-            )}
-          </li>
-          <li className="bg-slate-500 w-40 h-max">
-            <button onClick={() => setIsOpen1((prev) => !prev)}>
-              <a href="#">PORTFOLIO</a>
-            </button>
-            {isOpen1 && (
-              <ul className="dropdown2 bg-pink-600 translate-y-4 text-xs p-2 leading-6">
-                <li>
-                  <a href="#">HORIZONTAL 1 COLUMN</a>
-                </li>
-                <li>
-                  <a href="#">HORIZONTAL 2 COLUMN</a>
-                </li>
-                <li>
-                  <a href="#">HORIZONTAL3 COLUMN</a>
-                </li>
-                <li>
-                  <a href="#">MASONRY 1</a>
-                </li>
-                <li>
-                  <a href="#">MASONRY 2</a>
-                </li>
-                <li>
-                  <a href="#">COLUMN GRID</a>
-                </li>
-                <li className="dropdown3">
-                  <a href="#">SINGLE</a>
-                  <ul>
-                    <li>
-                      <a href="#">CAROUSEL</a>
-                    </li>
-                    <li>
-                      <a href="#">FULLSCREEN SLIDER</a>
-                    </li>
-                    <li>
-                      <a href="#">COLUMN 1</a>
-                    </li>
-                    <li>
-                      <a href="#">COLUMN 2</a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            )}
-          </li>
-          <li className="drp px-6">
-            <a href="#">ABOUT</a>
-          </li>
-          <li className="drp px-6">
-            <a href="#">NEWS</a>
-          </li>
-          <li className="drp px-6">
-            <a href="#">CONTACTS</a>
-          </li>
-        </ul>
-      </div>
-
-      <div className="menu">
-        <div className="menubar">
-          <div className="bars"></div>
         </div>
-      </div>
-      <div className="menu">
-        <a className="horn">
-          <i className="fas fa-bullhorn"></i>
-        </a>
-      </div>
-      <div className="dot_container">
-        <div className="dot"></div>
-      </div>
+       {isOpen &&( <div className={`menuItems  p-2  w-max ${isOpen ? "open" : ""}`} >
+            <ul className=' gap-12 lg:flex md:inline lg:static text-white '>
+                <li ref={menuRefSub}><a href="#" onClick={()=>setIsOpenSub((prev)=>!prev)}>HOME</a>
+               {/* {isOpenSub &&(<ul className='absolute bg-slate-700'>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Products</a></li>
+                    <li><a href="#">Pictures</a></li>
+                    <li><a href="#">Heroes</a></li>
+                  </ul>)} */}
+                </li>
+                <li><a href="#">IMAGES</a></li>
+                <li><a href="#">ABOUT</a></li>
+                <li><a href="#">NEWS</a></li>
+                <li><a href="#">CONTACTS</a></li>
+            </ul>
+        </div>)}
+        <button onClick={()=>setIsOpen((prev)=>!prev)} className='menuButton lg:invisible md:visible' >
+        <svg width="40" height="33" viewBox="0 0 50 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+<line x1="1" y1="1.5" x2="40" y2="1.5" stroke="white" stroke-width="3"/>
+<line x1="1" y1="31.5" x2="40" y2="31.5" stroke="white" stroke-width="3"/>
+<line x1="0.999369" y1="16.5206" x2="40" y2="16.5" stroke="white" stroke-width="3"/>
+</svg>
+        </button>
     </nav>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

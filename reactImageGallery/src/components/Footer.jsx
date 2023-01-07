@@ -2,7 +2,7 @@ import React from 'react'
 
 const footer = () => {
   return (
-       <footer className=' relative h-12 bg-gray-400 top-60 text-white '>
+       <footer className='  flex items-center justify-between  h-12 bg-gray-900  text-white '>
         <span className="footer_txt1">
             Copyright(c) All Rights Reserved. 
         </span>
