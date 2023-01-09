@@ -3,6 +3,7 @@ import logo from "../assets/logo.png"
 import { useState } from 'react'
 import { useEffect } from 'react'
 import { useRef } from 'react'
+import { NavLink } from 'react-router-dom'
 
 const Navbar = (props) => {
     const img = {
@@ -56,6 +57,9 @@ const Navbar = (props) => {
     props.onSearch(e.target.value)
     console.log("hello")
   }
+  const getData = ()=>{
+    
+  } 
 
  
   
@@ -64,13 +68,13 @@ const Navbar = (props) => {
   return (
     <nav className='w-full h-24 bg-[#151313] relative flex items-center justify-between px-2' ref={menuRef} >
         <div className="logo">
-            <img src={logo} alt="" height={img.height} width = {img.width} />
+           <NavLink to={"/"}> <img src={logo} alt="" height={img.height} width = {img.width} /></NavLink>
         </div>
         <div className="Search flex">
            
-            <input className='search-bar p-2' onChange={handleSearch} value={props.value} type="text" placeholder='search' />
+            <input className='search-bar p-2' onChange={handleSearch}  type="text" placeholder='search' />
            
-            <button onClick={handleSearch} className=' p-1'>
+            <button  className=' p-1'>
                <svg
             width="30"
             height="30"
@@ -87,7 +91,7 @@ const Navbar = (props) => {
         </div>
        {isOpen &&( <div className={`menuItems  p-2  w-max ${isOpen ? "open" : ""}`} >
             <ul className=' gap-12 lg:flex md:inline lg:static text-white '>
-                <li ref={menuRefSub}><a href="#" onClick={()=>setIsOpenSub((prev)=>!prev)}>HOME</a>
+                <li ref={menuRefSub}><NavLink to={"/Home"}>HOME</NavLink>
                {/* {isOpenSub &&(<ul className='absolute bg-slate-700'>
                     <li><a href="#">Services</a></li>
                     <li><a href="#">Products</a></li>
@@ -95,10 +99,10 @@ const Navbar = (props) => {
                     <li><a href="#">Heroes</a></li>
                   </ul>)} */}
                 </li>
-                <li><a href="#">IMAGES</a></li>
-                <li><a href="#">ABOUT</a></li>
-                <li><a href="#">NEWS</a></li>
-                <li><a href="#">CONTACTS</a></li>
+                <li><NavLink to={"/Images"}>IMAGES</NavLink></li>
+                <li><NavLink to={"/About"}>ABOUT</NavLink></li>
+                <li><NavLink to={"/News"}>NEWS</NavLink></li>
+                <li><NavLink to={"/Contacts"}>CONTACTS</NavLink></li>
             </ul>
         </div>)}
         <button onClick={()=>setIsOpen((prev)=>!prev)} className='menuButton lg:invisible md:visible' >

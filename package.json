@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "aos": "^2.3.4",
     "flowbite": "^1.6.0"
   }
 }
