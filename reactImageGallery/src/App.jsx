@@ -6,7 +6,6 @@ import { useState ,useEffect } from "react";
 import About from "./About";
 import Home from "./Home";
 import Content from "./components/Content";
-import Search from "./components/Search";
 import SearchService from "./services/SearchService";
 
 function App() {
