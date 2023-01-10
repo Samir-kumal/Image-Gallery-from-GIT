@@ -2,14 +2,13 @@ import React from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
 
-const Search = (props) => {
-    
-
+const Search = ({handleSearch}) => {
+ 
 
   return (
       <div className="Search flex">
            
-           <input className='search-bar p-2' onChange={props.onChange}  type="text" placeholder='search' />
+           <input className='search-bar p-2' onChange={handleSearch}  type="text" placeholder='search' />
           
            <button  className=' p-1'>
               <svg
