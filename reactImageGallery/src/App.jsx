@@ -11,6 +11,8 @@ import SearchService from "./services/SearchService";
 function App() {
   const [Images, setImages] = useState([]);
   const [search, setSearch] = useState("Bike");
+  const [isloading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
   const handleSearch = (searchInput) => {
     // update the search state with the searchInput value
@@ -19,10 +21,25 @@ function App() {
 
   useEffect(() => {
     const FetchApi = async () => {
+      setIsLoading(true);
+      setIsError(false);
+     try {
       const Response = await SearchService.Search(search);
       const data = await Response.json();
       setImages(data.results);
-      console.log(data.total);
+      // if (Images.length > 0) {
+      //   setIsLoading(false)
+      // } else {
+      //   setIsLoading(true)
+      // }
+      console.log(isloading);
+      setIsLoading(false);
+
+     } catch (error) {
+      setIsLoading(false);
+      setIsError(true);
+      
+     }
     };
 
     FetchApi();
@@ -38,8 +55,13 @@ function App() {
       <Routes>
         <Route path="/Home" element ={<Home onSearch ={handleSearch}/>}/>
         <Route path="/About" element={<About />} />
-      </Routes>  
+      </Routes> 
+      {isloading && <h1 className="text-6xl text-white">Loading...</h1>} 
+      {!isloading &&isError && <h1 className="text-6xl text-white">No Results!</h1>}
+      {!isloading && !isError && Images.length >0
+      &&
       <Content Images = {Images} />
+    }
       <Footer />
     </BrowserRouter>
   );
