@@ -48,14 +48,14 @@ const Navbar = (props) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const [searchInput, setSearchInput] = useState("");
+  // const [searchInput, setSearchInput] = useState("");
   const location = useLocation();
 
-  const handleSearch = (e) => {
-    setSearchInput(e.target.value);
-    props.onSearch(e.target.value);
-    console.log("hello");
-  };
+  const handleSearch_function = (value) => {
+    // setSearchInput(e.target.value)
+    props.onSearch(value)
+    console.log(value)
+  }
 
   if (location.pathname === "/Home") {
     return(
@@ -150,7 +150,7 @@ const Navbar = (props) => {
       </div>
       {}
 
-      <Search handleSearch={handleSearch} />
+      <Search handleSearch={(value) => handleSearch_function(value)} />
       {isOpen && (
         <div className={`menuItems  p-2  w-max ${isOpen ? "open" : ""}`}>
           <ul className=" gap-12 lg:flex md:inline lg:static text-white ">

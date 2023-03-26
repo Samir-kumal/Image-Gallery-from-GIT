@@ -18,6 +18,13 @@ function App() {
     // update the search state with the searchInput value
     setSearch(searchInput);
   };
+   // Define a callback function to receive the search input from Home component
+  //  const handleSearchFromHome = (searchInput) => {
+  //   handleSearch(searchInput);
+  //   console.log(searchInput)
+  //   console.log(Images)
+
+  // };
 
   useEffect(() => {
     const FetchApi = async () => {
@@ -32,7 +39,8 @@ function App() {
       // } else {
       //   setIsLoading(true)
       // }
-      console.log(isloading);
+      console.log(search)
+
       setIsLoading(false);
 
      } catch (error) {
@@ -51,9 +59,9 @@ function App() {
   return (
     <BrowserRouter>
     
-      <Navbar value={search} onSearch={handleSearch} />
+      <Navbar value={search} onSearch={(value)=> handleSearch(value)} />
       <Routes>
-        <Route path="/Home" element ={<Home onSearch ={handleSearch}/>}/>
+        <Route path="/Home" element ={<Home onSearch ={(value)=> handleSearch(value)}/>}/>
         <Route path="/About" element={<About />} />
       </Routes> 
       {isloading && <h1 className="text-6xl text-white">Loading...</h1>} 
