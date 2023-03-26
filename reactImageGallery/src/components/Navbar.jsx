@@ -152,8 +152,8 @@ const Navbar = (props) => {
 
       <Search handleSearch={(value) => handleSearch_function(value)} />
       {isOpen && (
-        <div className={`menuItems  p-2  w-max ${isOpen ? "open" : ""}`}>
-          <ul className=" gap-12 lg:flex md:inline lg:static text-white ">
+        <div className={`menuItems  p-2 z-20 opacity-80  w-max ${isOpen ? "open" : ""}`}>
+          <ul className=" gap-12 lg:flex z-20  md:inline lg:static text-white ">
             <li ref={menuRefSub}>
               <NavLink to={"/Home"}>HOME</NavLink>
               {/* {isOpenSub &&(<ul className='absolute bg-slate-700'>
