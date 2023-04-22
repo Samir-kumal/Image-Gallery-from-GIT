@@ -16,10 +16,10 @@ const Image = (props) => {
     set({ scale: 1, opacity: 1 })
     SetisOver(false);
   }
-  const handleMouseClick = (id,download) =>{
+  const handleMouseClick = (url) =>{
     props.handleMessage(true);
-    props.imageContent(id)
-    props.imageDownload(download);
+    props.imageContent(url)
+    // props.imageDownload(download);
     // console.log(id);
 
   }
@@ -37,7 +37,7 @@ const Image = (props) => {
     }}
     onMouseEnter={() => handleMouseOnEnter() }
     onMouseLeave={() => handleMouseOnLeave() }
-    onClick={()=> handleMouseClick(props.urls.regular,props.links.download)}
+    onClick={()=> handleMouseClick(props.urls.regular)}
   >
     <div>
     { isOver &&  <span className='absolute right-2 top-2   grid grid-cols-2  gap-2'>
