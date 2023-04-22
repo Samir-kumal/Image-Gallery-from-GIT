@@ -18,12 +18,30 @@ const Navbar = (props) => {
   let menuRef = useRef();
   let menuRefSub = useRef();
 
+  // useEffect(() => {
+  //   let handler = (e) => {
+  //     if (window.innerWidth < 1021 && !menuRef.current.contains(e.target)) {
+  //       setIsOpen(false);
+  //     }
+  //     if (!menuRefSub.current.contains(e.target)) {
+  //       setIsOpenSub(false);
+  //     }
+  //   };
+  //   document.addEventListener("mousedown", handler);
+
+  //   window.addEventListener("beforeunload", () => setIsOpen(true));
+  //   window.addEventListener("beforeunload", () => setIsOpenSub(false));
+
+  //   return () => {
+  //     document.removeEventListener("mousedown", handler);
+  //   };
+  // });
   useEffect(() => {
     let handler = (e) => {
-      if (window.innerWidth < 1021 && !menuRef.current.contains(e.target)) {
+      if (window.innerWidth < 1021 && menuRef && menuRef.current && !menuRef.current.contains(e.target)) {
         setIsOpen(false);
       }
-      if (!menuRefSub.current.contains(e.target)) {
+      if (menuRefSub && menuRefSub.current && !menuRefSub.current.contains(e.target)) {
         setIsOpenSub(false);
       }
     };
@@ -35,7 +53,7 @@ const Navbar = (props) => {
     return () => {
       document.removeEventListener("mousedown", handler);
     };
-  });
+  }, [menuRef, menuRefSub]);
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 1021) setIsOpen(true);
