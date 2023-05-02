@@ -48,7 +48,7 @@ const Image = (props) => {
     
     
 
-    <img src={props.urls.small} alt="" loading='lazy'  className='rounded-xl h-52 object-cover w-full ' />
+    <img src={props.urls.small} alt="" loading='lazy'   className='rounded-xl h-52 object-cover w-full ' />
 
     </div>
     

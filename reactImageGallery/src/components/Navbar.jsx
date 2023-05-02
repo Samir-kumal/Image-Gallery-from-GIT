@@ -72,10 +72,10 @@ const Navbar = (props) => {
   const handleSearch_function = (value) => {
     // setSearchInput(e.target.value)
     props.onSearch(value)
-    console.log(value)
+    // console.log(value)
   }
 
-  if (location.pathname === "/Home") {
+  if (location.pathname === "/") {
     return(
     <nav
       className="w-full h-24 bg-[#151313] relative flex items-center justify-between px-2"
@@ -93,7 +93,7 @@ const Navbar = (props) => {
         <div className={`menuItems  p-2  w-max ${isOpen ? "open" : ""}`}>
           <ul className=" gap-12 lg:flex md:inline lg:static text-white ">
             <li ref={menuRefSub}>
-              <NavLink to={"/Home"}>HOME</NavLink>
+              <NavLink to={"/"}>HOME</NavLink>
               {/* {isOpenSub &&(<ul className='absolute bg-slate-700'>
                     <li><a href="#">Services</a></li>
                     <li><a href="#">Products</a></li>
@@ -168,12 +168,12 @@ const Navbar = (props) => {
       </div>
       {}
 
-      <Search handleSearch={(value) => handleSearch_function(value)} />
+      <Search handleSearch={handleSearch_function} />
       {isOpen && (
         <div className={`menuItems  p-2 z-20 opacity-80  w-max ${isOpen ? "open" : ""}`}>
           <ul className=" gap-12 lg:flex z-20  md:inline lg:static text-white ">
             <li ref={menuRefSub}>
-              <NavLink to={"/Home"}>HOME</NavLink>
+              <NavLink to={"/"}>HOME</NavLink>
               {/* {isOpenSub &&(<ul className='absolute bg-slate-700'>
                     <li><a href="#">Services</a></li>
                     <li><a href="#">Products</a></li>
