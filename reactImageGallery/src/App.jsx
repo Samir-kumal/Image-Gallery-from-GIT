@@ -52,7 +52,7 @@ function App() {
 
         if (Response.ok) {
           setPromise(true);
-          // console.log(data.results[0]);
+          console.log(data.results[0]);
 
           // setIsLoading(false);
         } else {

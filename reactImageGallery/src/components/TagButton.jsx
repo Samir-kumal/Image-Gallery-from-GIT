@@ -2,9 +2,16 @@ import React from 'react'
 import { NavLink } from 'react-router-dom';
 
 const TagButton = (props) => {
+    let  tagvalue = props.value;
+    
+
  const tagButtonClickHandler =() =>{
-    let tagvalue = props.value;
     props.tagClickHandler(tagvalue)
+ }
+ const checkRedundantValueHandler = (tagValue)=>{
+    if (tagValue) {
+        
+    }
  }
   return (
     <NavLink to={"/Images"}>

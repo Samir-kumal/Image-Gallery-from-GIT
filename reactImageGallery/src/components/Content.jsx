@@ -5,7 +5,7 @@ import TagButton from "./TagButton";
 const content = (props) => {
   const [imgContent, setImgContent] = useState("");
   const [menuState, setMenuState] = useState(false);
- 
+  const [tagArray, setTagArray] = useState([]);
 
   const handleMessage = (data) => {
     setMenuState(data);
@@ -13,18 +13,22 @@ const content = (props) => {
 
   const imageContent = (img) => {
     setImgContent(img);
-    
   };
-  const ontagClickHandler = (tagValue) =>{
+  const ontagClickHandler = (tagValue) => {
     props.tagValueHandler(tagValue);
     setMenuState(false);
-  }
+  };
 
+  const tagContent = (data) => {
+    setTagArray([...data.map((tag) => tag.title)]);
+    console.log(tagArray)
+
+  };
 
   return (
     <>
       {menuState && (
-        <div className="fixed m-auto overflow-auto rounded p-2 px-6 left-0 top-2/4 bottom-1/2 right-0 w-[80%] h-[90%] bg-white z-[999]">
+        <div className="fixed m-auto overflow-auto  rounded p-2 px-6 left-0 top-2/4 bottom-1/2 right-0 w-[80%] h-[90%] bg-white z-[999]">
           <button className="p-2" onClick={() => setMenuState(false)}>
             X
           </button>
@@ -43,30 +47,27 @@ const content = (props) => {
             </div>
           </div>
           <div>
-            <h2>
-              Related Tags
-            </h2>
+            <h2>Related Tags</h2>
             <div className="flex flex-wrap gap-y-1">
-           {props.Images.map((image)=>(
-              
-                image.tags.map((tag) =>(
-                  <TagButton value = { tag.title} tagClickHandler = {ontagClickHandler} />
-                 
-                ))
-          
-           ))} 
-           </div>
+              {tagArray.map((arr) => (
+                <TagButton
+                  value={arr}
+                  tagClickHandler={ontagClickHandler}
+                />
+              ))}
+            </div>
           </div>
         </div>
       )}
 
-      <div className="container  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 ml-8 mt-10 ">
+      <div className="container m-auto  place-content-center  flex flex-wrap gap-5  mt-10 ">
         {props.Images.map((image) => (
           <Image
             key={image.id}
             {...image}
             handleMessage={handleMessage}
             imageContent={imageContent}
+            tagList={tagContent}
           />
         ))}
       </div>
