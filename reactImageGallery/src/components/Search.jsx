@@ -3,27 +3,38 @@ import { useState } from "react";
 
 const Search = (props) => {
   const [searchInput, setSearchInput] = useState("");
+
   const handleInputChange = (e) => {
     setSearchInput(e.target.value)
+  
+  }
+  const submitHandler = (e) =>{
+    e.preventDefault();
+    if (searchInput.length >0) {
+    props.handleSearch(searchInput)
+      
+    } else {
+      
+    }
+    console.log(searchInput);
+
   }
 
   return (
     <div className="Search flex">
-      
+        <form onSubmit={submitHandler}>
         <input
-          className="search-bar p-2"
+          className="search-bar rounded-md px-8 p-2"
           onChange={handleInputChange}
           value={searchInput}
 
           type="text"
-          placeholder="search"
+          placeholder="Search Anything!"
         />
-   
-
-        <button onClick={()=> props.handleSearch(searchInput)} className=" p-1">
+          <button type="submit"  className=" translate-y-[0.8rem] p-1">
           <svg
-            width="30"
-            height="30"
+            width="35"
+            height="35"
             viewBox="0 0 52 52"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -34,6 +45,11 @@ const Search = (props) => {
             />
           </svg>
         </button>
+        </form>
+       
+   
+
+      
       
     </div>
   );
