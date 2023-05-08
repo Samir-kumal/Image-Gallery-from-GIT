@@ -24,7 +24,7 @@ const Image = (props) => {
     props.imageContent(url);
     props.tagList(tag);
     // props.imageDownload(download);
-    // console.log(id);
+    // console.log(id_);
   };
 
   return (
