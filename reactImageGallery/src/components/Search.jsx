@@ -31,10 +31,10 @@ const Search = (props) => {
           type="text"
           placeholder="Search Anything!"
         />
-          <button type="submit"  className=" translate-y-[0.8rem] p-1">
+          <button type="submit"  className=" translate-y-[0.4rem] p-1">
           <svg
-            width="35"
-            height="35"
+            width="25"
+            height="25"
             viewBox="0 0 52 52"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"

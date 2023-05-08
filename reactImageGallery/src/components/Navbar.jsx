@@ -94,12 +94,6 @@ const Navbar = (props) => {
           <ul className=" gap-12 lg:flex md:inline lg:static text-white ">
             <li ref={menuRefSub}>
               <NavLink to={"/"}>HOME</NavLink>
-              {/* {isOpenSub &&(<ul className='absolute bg-slate-700'>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Products</a></li>
-                    <li><a href="#">Pictures</a></li>
-                    <li><a href="#">Heroes</a></li>
-                  </ul>)} */}
             </li>
             <li>
               <NavLink to={"/Images"}>IMAGES</NavLink>
@@ -108,7 +102,7 @@ const Navbar = (props) => {
               <NavLink to={"/About"}>ABOUT</NavLink>
             </li>
             <li>
-              <NavLink to={"/News"}>NEWS</NavLink>
+              <NavLink to={"/Explore"}>EXPLORE</NavLink>
             </li>
             <li>
               <NavLink to={"/Contacts"}>CONTACTS</NavLink>
@@ -174,12 +168,6 @@ const Navbar = (props) => {
           <ul className=" gap-12 lg:flex z-20  md:inline lg:static text-white ">
             <li ref={menuRefSub}>
               <NavLink to={"/"}>HOME</NavLink>
-              {/* {isOpenSub &&(<ul className='absolute bg-slate-700'>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Products</a></li>
-                    <li><a href="#">Pictures</a></li>
-                    <li><a href="#">Heroes</a></li>
-                  </ul>)} */}
             </li>
             <li>
               <NavLink to={"/Images"}>IMAGES</NavLink>
@@ -188,7 +176,7 @@ const Navbar = (props) => {
               <NavLink to={"/About"}>ABOUT</NavLink>
             </li>
             <li>
-              <NavLink to={"/News"}>NEWS</NavLink>
+              <NavLink to={"/Explore"}>EXPLORE</NavLink>
             </li>
             <li>
               <NavLink to={"/Contacts"}>CONTACTS</NavLink>

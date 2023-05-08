@@ -7,6 +7,7 @@ import About from "./About";
 import Home from "./Home";
 import Content from "./components/Content";
 import SearchService from "./services/SearchService";
+import ExplorePage from "./pages/ExplorePage";
 
 function App() {
   const [Images, setImages] = useState([]);
@@ -46,14 +47,13 @@ function App() {
 
         // } else {
         //   console.log("hello");
-        // samir kumal
 
         // }
         setIsLoading(true);
 
         if (Response.ok) {
           setPromise(true);
-          console.log(data.results[0]);
+          console.log(data.results[1]);
 
           // setIsLoading(false);
         } else {
@@ -86,6 +86,7 @@ function App() {
           element={<Home onSearch={(value) => handleSearch(value)} />}
         />
         <Route path="/About" element={<About />} />
+        <Route path ="/Explore" element= {<ExplorePage/>}/>
       </Routes>
       {isloading && <h1 className="text-6xl text-white">Loading...</h1>}
       {!isloading && isError && (
