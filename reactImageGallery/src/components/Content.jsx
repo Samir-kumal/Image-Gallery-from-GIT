@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Image from "./Image";
 import TagButton from "./TagButton";
+import ImageList from "@mui/material/ImageList";
+import { ImageListItem } from "@mui/material";
 
 const content = (props) => {
   const [imgContent, setImgContent] = useState("");
@@ -21,10 +22,16 @@ const content = (props) => {
 
   const tagContent = (data) => {
     setTagArray([...data.map((tag) => tag.title)]);
-    console.log(tagArray)
-
+    console.log(tagArray);
   };
+  // console.log(props.Images[0].height);
 
+  const handleMouseClick = (urls,tags) => {
+    setMenuState(true);
+    console.log(urls);
+    tagContent(tags);
+    setImgContent(urls);
+  };
   return (
     <>
       {menuState && (
@@ -50,26 +57,44 @@ const content = (props) => {
             <h2>Related Tags</h2>
             <div className="flex flex-wrap gap-y-1">
               {tagArray.map((arr) => (
-                <TagButton
-                  value={arr}
-                  tagClickHandler={ontagClickHandler}
-                />
+                <TagButton value={arr} tagClickHandler={ontagClickHandler} />
               ))}
             </div>
           </div>
         </div>
       )}
+      
 
-      <div className="container m-auto  place-content-center  flex flex-wrap gap-5  mt-10 ">
-        {props.Images.map((image) => (
-          <Image
-            key={image.id}
-            {...image}
-            handleMessage={handleMessage}
-            imageContent={imageContent}
-            tagList={tagContent}
-          />
-        ))}
+      <div className="container m-auto  place-content-center mt-10 ">
+        <ImageList
+          sx={{ width: "100%", height: "100%" }}
+          variant="quilted"
+          cols={3}
+          rowHeight={300}
+          gap={28}
+        >
+          {props.Images.map((image) => (
+            <ImageListItem
+              key={image.id}
+              cols={image.height / image.width > 1.5 ? 1 : 1}
+              rows={image.height / image.width > 1.5 ? 2 : 1}
+            >
+              <img
+                onClick={()=>handleMouseClick(image.urls.regular,image.tags)}
+                className="rounded-md hover:scale-100"
+                src={image.urls.small}
+                alt={image.title}
+                loading="lazy"
+              />
+  
+            </ImageListItem>
+            // <Image
+            //   handleMessage={handleMessage}
+            //   imageC={imageContent}
+            //   tagList={tagContent}
+            // />
+          ))}
+        </ImageList>
       </div>
     </>
   );
