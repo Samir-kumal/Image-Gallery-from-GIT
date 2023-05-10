@@ -49,7 +49,7 @@ const content = (props) => {
                 href={imgContent}
                 download={true}
               >
-                Download
+                Download Image
               </a>
             </div>
           </div>
