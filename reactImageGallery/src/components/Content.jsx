@@ -24,7 +24,7 @@ const content = (props) => {
     setTagArray([...data.map((tag) => tag.title)]);
     console.log(tagArray);
   };
-  // console.log(props.Images[0].height);
+
 
   const handleMouseClick = (urls,tags) => {
     setMenuState(true);
@@ -86,13 +86,7 @@ const content = (props) => {
                 alt={image.title}
                 loading="lazy"
               />
-  
             </ImageListItem>
-            // <Image
-            //   handleMessage={handleMessage}
-            //   imageC={imageContent}
-            //   tagList={tagContent}
-            // />
           ))}
         </ImageList>
       </div>
