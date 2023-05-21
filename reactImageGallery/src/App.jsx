@@ -43,9 +43,52 @@ function App() {
     console.log("loading " + isloading);
   }, [search]);
 
+
+  // useEffect(()=>{
+  //   const handleScroll = () => {
+  //     var scrollY = window.scrollY || window.pageYOffset;
+
+  //     // Print the scroll index y to the console
+  //     console.log("Scroll index y:", scrollY);
+  //     if (scrollY === 2000) {
+  //       const FetchApi = async () => {
+  //         setIsLoading(true);
+  //         console.log("hello");
+  //         setIsError(null);
+  //         try {
+  //           const Response = await SearchService.Search(search);
+  //           if (!Response.ok) {
+  //             throw new Error("Something Went wrong");
+  //           }
+  //           const data = await Response.json();
+  //           setImages(data.results);
+  //         } catch (error) {
+  //           setIsError(error.message);
+  //         }
+  //         setIsLoading(false);
+  //       };
+
+  //       FetchApi();
+      
+  //     }
+  //   };
+  //   window.addEventListener("scroll", handleScroll);
+
+  //   return () => {
+  //   window.removeEventListener("scroll", handleScroll);
+
+  //   }
+  // },[]);
+
+
+
   let content = null;
   if (isloading) {
-    content = <h1 className="text-6xl text-white">Loading...</h1>;
+    content = (
+      <div className="w-full h-80 bg-[#151313]">
+        <h1 className="text-6xl text-white">Loading...</h1>
+      </div>
+    );
   } else if (!isloading && Images.length === 0) {
     content = <h1 className="text-6xl text-white">No Results!</h1>;
   } else if (!isloading && isError) {

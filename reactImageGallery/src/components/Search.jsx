@@ -5,36 +5,39 @@ const Search = (props) => {
   const [searchInput, setSearchInput] = useState("");
 
   const handleInputChange = (e) => {
-    setSearchInput(e.target.value)
-  
-  }
-  const submitHandler = (e) =>{
+    setSearchInput(e.target.value);
+  };
+  const submitHandler = (e) => {
     e.preventDefault();
-    if (searchInput.length >0) {
-    props.handleSearch(searchInput)
-      
+    if (searchInput.length > 0) {
+      props.handleSearch(searchInput);
     } else {
-      
     }
     console.log(searchInput);
-
-  }
+  };
 
   return (
-    <div className="Search flex">
-        <form onSubmit={submitHandler}>
-        <input
-          className="search-bar rounded-md px-8 p-2"
+    <div className="Search ">
+      <form onSubmit={submitHandler}>
+        {/* <input
+          className="search-bar rounded-md "
           onChange={handleInputChange}
           value={searchInput}
 
           type="text"
           placeholder="Search Anything!"
+        /> */}
+        <input
+          className="rounded-md px-20 py-3 "
+          onChange={handleInputChange}
+          placeholder="Search Anything!"
+          value={searchInput}
+          type="text"
         />
-          <button type="submit"  className=" translate-y-[0.4rem] p-1">
+        <button type="submit" className=" translate-y-[.8rem] p-1">
           <svg
-            width="25"
-            height="25"
+            width="35"
+            height="35"
             viewBox="0 0 52 52"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -45,12 +48,7 @@ const Search = (props) => {
             />
           </svg>
         </button>
-        </form>
-       
-   
-
-      
-      
+      </form>
     </div>
   );
 };
