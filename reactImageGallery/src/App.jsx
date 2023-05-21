@@ -12,66 +12,88 @@ import ExplorePage from "./pages/ExplorePage";
 function App() {
   const [Images, setImages] = useState([]);
   const [search, setSearch] = useState("Random");
-  const [isloading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+  const [isloading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState();
 
   const handleSearch = (searchInput) => {
     // update the search state with the searchInput value
     setSearch(searchInput);
   };
-  // Define a callback function to receive the search input from Home component
-  //  const handleSearchFromHome = (searchInput) => {
-  //   handleSearch(searchInput);
-  //   console.log(searchInput)
-  //   console.log(Images)
-
-  // };
-
-  // let promiseMade = false;
-  const [promiseMade, setPromise] = useState(false);
 
   useEffect(() => {
     const FetchApi = async () => {
+      setIsLoading(true);
+      setIsError(null);
       try {
         const Response = await SearchService.Search(search);
+        if (!Response.ok) {
+          throw new Error("Something Went wrong");
+        }
         const data = await Response.json();
         setImages(data.results);
-        // if (Images.length > 0) {
-        //   setIsLoading(false)
-        // } else {
-        //   setIsLoading(true)
-        // }
-        // if (data.results.length === 0) {
-        // console.log(data.results.length)
-        // return <h1 className="text-6xl text-white">No Results!</h1>
-
-        // } else {
-        //   console.log("hello");
-
-        // }
-        setIsLoading(true);
-
-        if (Response.ok) {
-          setPromise(true);
-          // console.log(data.results[1]);
-
-          // setIsLoading(false);
-        } else {
-          setIsError(true);
-        }
       } catch (error) {
-        setIsError(true);
-        setPromise(false);
+        setIsError(error.message);
       }
       setIsLoading(false);
     };
 
     FetchApi();
-    console.log("promise " + promiseMade);
 
     console.log("error " + isError);
     console.log("loading " + isloading);
   }, [search]);
+
+
+  // useEffect(()=>{
+  //   const handleScroll = () => {
+  //     var scrollY = window.scrollY || window.pageYOffset;
+
+  //     // Print the scroll index y to the console
+  //     console.log("Scroll index y:", scrollY);
+  //     if (scrollY === 2000) {
+  //       const FetchApi = async () => {
+  //         setIsLoading(true);
+  //         console.log("hello");
+  //         setIsError(null);
+  //         try {
+  //           const Response = await SearchService.Search(search);
+  //           if (!Response.ok) {
+  //             throw new Error("Something Went wrong");
+  //           }
+  //           const data = await Response.json();
+  //           setImages(data.results);
+  //         } catch (error) {
+  //           setIsError(error.message);
+  //         }
+  //         setIsLoading(false);
+  //       };
+
+  //       FetchApi();
+      
+  //     }
+  //   };
+  //   window.addEventListener("scroll", handleScroll);
+
+  //   return () => {
+  //   window.removeEventListener("scroll", handleScroll);
+
+  //   }
+  // },[]);
+
+
+
+  let content = null;
+  if (isloading) {
+    content = (
+      <div className="w-full h-80 bg-[#151313]">
+        <h1 className="text-6xl text-white">Loading...</h1>
+      </div>
+    );
+  } else if (!isloading && Images.length === 0) {
+    content = <h1 className="text-6xl text-white">No Results!</h1>;
+  } else if (!isloading && isError) {
+    content = <h1 className="text-6xl text-white">No Results!</h1>;
+  }
 
   const onTagClickHandler = (tagValue) => {
     setSearch(tagValue);
@@ -86,13 +108,10 @@ function App() {
           element={<Home onSearch={(value) => handleSearch(value)} />}
         />
         <Route path="/About" element={<About />} />
-        <Route path ="/Explore" element= {<ExplorePage/>}/>
+        <Route path="/Explore" element={<ExplorePage />} />
       </Routes>
-      {isloading && <h1 className="text-6xl text-white">Loading...</h1>}
-      {!isloading && isError && (
-        <h1 className="text-6xl text-white">No Results!</h1>
-      )}
-      {!isloading && !isError && Images.length > 0 && (
+      {content}
+      {!isloading && Images.length > 0 && (
         <Content Images={Images} tagValueHandler={onTagClickHandler} />
       )}
       <Footer />

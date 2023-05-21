@@ -7,14 +7,16 @@ const content = (props) => {
   const [imgContent, setImgContent] = useState("");
   const [menuState, setMenuState] = useState(false);
   const [tagArray, setTagArray] = useState([]);
+  const [windowWidth, setWindowWidth] = useState(0);
+  const [columnCount, setColumnCount] = useState(1);
 
-  const handleMessage = (data) => {
-    setMenuState(data);
-  };
+  // const handleMessage = (data) => {
+  //   setMenuState(data);
+  // };
 
-  const imageContent = (img) => {
-    setImgContent(img);
-  };
+  // const imageContent = (img) => {
+  //   setImgContent(img);
+  // };
   const ontagClickHandler = (tagValue) => {
     props.tagValueHandler(tagValue);
     setMenuState(false);
@@ -24,14 +26,42 @@ const content = (props) => {
     setTagArray([...data.map((tag) => tag.title)]);
     console.log(tagArray);
   };
-  // console.log(props.Images[0].height);
 
-  const handleMouseClick = (urls,tags) => {
+  const handleMouseClick = (urls, tags) => {
     setMenuState(true);
     console.log(urls);
     tagContent(tags);
     setImgContent(urls);
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+
+      if (width < 768) {
+        setColumnCount(1); // Small screen, 1 column
+      } else if (width >= 768 && width < 1024) {
+        setColumnCount(2); // Medium screen, 2 columns
+      } else {
+        setColumnCount(3); // Large screen, 3 columns
+      }
+
+      setWindowWidth(width);
+    };
+
+    handleResize();
+
+    // Attach the event listener to update the state on window resize
+    window.addEventListener('resize', handleResize);
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  console.log(window.innerWidth);
+
   return (
     <>
       {menuState && (
@@ -63,13 +93,12 @@ const content = (props) => {
           </div>
         </div>
       )}
-      
 
       <div className="container m-auto  place-content-center mt-10 ">
         <ImageList
           sx={{ width: "100%", height: "100%" }}
           variant="quilted"
-          cols={3}
+          cols={columnCount}
           rowHeight={300}
           gap={28}
         >
@@ -80,19 +109,13 @@ const content = (props) => {
               rows={image.height / image.width > 1.5 ? 2 : 1}
             >
               <img
-                onClick={()=>handleMouseClick(image.urls.regular,image.tags)}
+                onClick={() => handleMouseClick(image.urls.regular, image.tags)}
                 className="rounded-md hover:scale-100"
                 src={image.urls.small}
                 alt={image.title}
                 loading="lazy"
               />
-  
             </ImageListItem>
-            // <Image
-            //   handleMessage={handleMessage}
-            //   imageC={imageContent}
-            //   tagList={tagContent}
-            // />
           ))}
         </ImageList>
       </div>
@@ -100,4 +123,4 @@ const content = (props) => {
   );
 };
 
-export default content;
+export default React.memo(content);
