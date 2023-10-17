@@ -29,7 +29,7 @@ const Search = (props) => {
         /> */}
         <div className="relative">
         <input
-          className="rounded-md px-4 w-96 py-3 "
+          className="rounded-md px-4 w-80 py-3 "
           onChange={handleInputChange}
           placeholder="Search Anything!"
           value={searchInput}

@@ -12,7 +12,6 @@ const content = (props) => {
   const [tagArray, setTagArray] = useState([]);
   const [windowWidth, setWindowWidth] = useState(0);
   const [columnCount, setColumnCount] = useState(1);
-console.log(props.Images[0].alt_description)
   // const handleMessage = (data) => {
   //   setMenuState(data);
   // };
@@ -79,7 +78,6 @@ console.log(props.Images[0].alt_description)
     };
   }, []);
 
-  console.log(window.innerWidth);
 
   return (
     <>
@@ -88,8 +86,8 @@ console.log(props.Images[0].alt_description)
           <button className="p-2" onClick={() => setMenuState(false)}>
             X
           </button>
-          <div className="w-full flex justify-center h-fit ">
-            <img src={imgContent.url} alt="" height={500} width={500} />
+          <div className="w-full flex xl:flex-row lg:flex-row flex-col justify-center h-fit ">
+            <img className="p-2" src={imgContent.url} alt="" height={500} width={500} />
             <div className="w-full h-20  flex justify-center ">
               <button onClick={()=>handleDownloadClick(imgContent)}
                 className=" flex justify-center items-center

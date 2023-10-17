@@ -127,7 +127,7 @@ const Navbar = (props) => {
             x2="40"
             y2="1.5"
             stroke="white"
-            stroke-width="3"
+            strokeWidth="3"
           />
           <line
             x1="1"
@@ -135,7 +135,7 @@ const Navbar = (props) => {
             x2="40"
             y2="31.5"
             stroke="white"
-            stroke-width="3"
+            strokeWidth="3"
           />
           <line
             x1="0.999369"
@@ -143,7 +143,7 @@ const Navbar = (props) => {
             x2="40"
             y2="16.5"
             stroke="white"
-            stroke-width="3"
+            strokeWidth="3"
           />
         </svg>
       </button>
@@ -201,7 +201,7 @@ const Navbar = (props) => {
             x2="40"
             y2="1.5"
             stroke="white"
-            stroke-width="3"
+            strokeWidth="3"
           />
           <line
             x1="1"
@@ -209,7 +209,7 @@ const Navbar = (props) => {
             x2="40"
             y2="31.5"
             stroke="white"
-            stroke-width="3"
+            strokeWidth="3"
           />
           <line
             x1="0.999369"
@@ -217,7 +217,7 @@ const Navbar = (props) => {
             x2="40"
             y2="16.5"
             stroke="white"
-            stroke-width="3"
+            strokeWidth="3"
           />
         </svg>
       </button>
