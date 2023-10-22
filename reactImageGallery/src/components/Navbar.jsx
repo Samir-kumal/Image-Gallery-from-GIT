@@ -6,6 +6,7 @@ import { useRef } from "react";
 import { NavLink } from "react-router-dom";
 import Search from "./Search";
 import { useLocation } from "react-router-dom";
+import { useDataProvider } from "../context/DataProvider";
 
 const Navbar = (props) => {
   const img = {
@@ -14,6 +15,8 @@ const Navbar = (props) => {
   };
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenSub, setIsOpenSub] = useState(false);
+  const { Images, setImages, search, setSearch, isloading, setIsLoading } =
+  useDataProvider();
 
   let menuRef = useRef();
   let menuRefSub = useRef();
@@ -71,7 +74,7 @@ const Navbar = (props) => {
 
   const handleSearch_function = (value) => {
     // setSearchInput(e.target.value)
-    props.onSearch(value)
+    setSearch(value);
     // console.log(value)
   }
 
@@ -127,7 +130,7 @@ const Navbar = (props) => {
             x2="40"
             y2="1.5"
             stroke="white"
-            stroke-width="3"
+            strokeWidth="3"
           />
           <line
             x1="1"
@@ -135,7 +138,7 @@ const Navbar = (props) => {
             x2="40"
             y2="31.5"
             stroke="white"
-            stroke-width="3"
+            strokeWidth="3"
           />
           <line
             x1="0.999369"
@@ -143,7 +146,7 @@ const Navbar = (props) => {
             x2="40"
             y2="16.5"
             stroke="white"
-            stroke-width="3"
+            strokeWidth="3"
           />
         </svg>
       </button>
@@ -201,7 +204,7 @@ const Navbar = (props) => {
             x2="40"
             y2="1.5"
             stroke="white"
-            stroke-width="3"
+            strokeWidth="3"
           />
           <line
             x1="1"
@@ -209,7 +212,7 @@ const Navbar = (props) => {
             x2="40"
             y2="31.5"
             stroke="white"
-            stroke-width="3"
+            strokeWidth="3"
           />
           <line
             x1="0.999369"
@@ -217,7 +220,7 @@ const Navbar = (props) => {
             x2="40"
             y2="16.5"
             stroke="white"
-            stroke-width="3"
+            strokeWidth="3"
           />
         </svg>
       </button>
