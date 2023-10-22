@@ -4,6 +4,7 @@ import Search from "./components/Search";
 import SigninPage from "./pages/Auth/SigninPage";
 import { useDataProvider } from "./context/DataProvider";
 import Content from "./components/Content";
+import Navbar from "./components/Navbar";
 
 const Home = () => {
   // const [searchInput, setSearchInput] = useState('')
@@ -44,6 +45,7 @@ const Home = () => {
 
   return (
     <>
+    <Navbar/>
       {show && (
         <div className="relative w-full flex justify-center items-center h-[80vh]">
           <SigninPage handleShow={setShow} />
