@@ -6,6 +6,7 @@ import { useRef } from "react";
 import { NavLink } from "react-router-dom";
 import Search from "./Search";
 import { useLocation } from "react-router-dom";
+import { useDataProvider } from "../context/DataProvider";
 
 const Navbar = (props) => {
   const img = {
@@ -14,6 +15,8 @@ const Navbar = (props) => {
   };
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenSub, setIsOpenSub] = useState(false);
+  const { Images, setImages, search, setSearch, isloading, setIsLoading } =
+  useDataProvider();
 
   let menuRef = useRef();
   let menuRefSub = useRef();
@@ -71,7 +74,7 @@ const Navbar = (props) => {
 
   const handleSearch_function = (value) => {
     // setSearchInput(e.target.value)
-    props.onSearch(value)
+    setSearch(value);
     // console.log(value)
   }
 

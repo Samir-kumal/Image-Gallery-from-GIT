@@ -8,9 +8,9 @@ import Home from "./Home";
 import Content from "./components/Content";
 import ExplorePage from "./pages/ExplorePage";
 import { useDataProvider } from "./context/DataProvider";
+import SignUpPage from "./pages/Auth/SignUpPage";
 
 function App() {
-  const [isError, setIsError] = useState();
   const { Images, setImages, search, setSearch, isloading, setIsLoading } =
     useDataProvider();
 
@@ -19,42 +19,15 @@ function App() {
     setSearch(searchInput);
   };
 
-  let content = null;
-  if (isloading) {
-    content = (
-      <div className="w-full h-[100vh] flex items-center justify-center bg-[#151313]">
-        <h1 className="text-6xl text-white">Loading...</h1>
-      </div>
-    );
-  } else if (!isloading && Images.length === 0) {
-    content =   <div className="w-full h-[100vh] flex items-center justify-center bg-[#151313]">
-      <h1 className="text-6xl text-white">No Results!</h1>
-    </div>;
-  } else if (!isloading && isError) {
-    content = <h1 className="text-6xl text-white">No Results!</h1>;
-  }
-
-  const onTagClickHandler = (tagValue) => {
-    setSearch(tagValue);
-  };
-
-  console.log("rendered")
-
   return (
     <BrowserRouter>
-      <Navbar value={search} onSearch={(value) => handleSearch(value)} />
+      {/* <Navbar /> */}
       <Routes>
-        <Route
-          path="/"
-          element={<Home onSearch={(value) => handleSearch(value)} />}
-        />
+        <Route path="/" element={<Home />} />
         <Route path="/About" element={<About />} />
         <Route path="/Explore" element={<ExplorePage />} />
+        <Route path="/Signup" element={<SignUpPage />} />
       </Routes>
-      {content}
-      {!isloading && Images.length > 0 && (
-        <Content Images={Images} tagValueHandler={onTagClickHandler} />
-      )}
       <Footer />
     </BrowserRouter>
   );
