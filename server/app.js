@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const flatted = require("flatted");
+
 app.use(express.json());
 app.use(cors());
 require("dotenv").config();
@@ -77,7 +79,7 @@ app.post("/login", async (req, res) => {
       });
     }
     if (await bcrypt.compare(password, user.pass)) {
-      const token = jwt.sign({}, JWT_SECRET);
+      const token = jwt.sign({email:user.email}, JWT_SECRET);
 
       if (res.status(201)) {
         return res.json({ status: "ok", data: token });
@@ -94,13 +96,27 @@ app.post("/login", async (req, res) => {
 app.post("/userdata", async (req, res) => {
   const { token } = req.body;
   try {
-    const user = jwt.verify(token, JWT_SECRET);
-    User.findOne({ email: user.email })
+    const user = jwt.verify(token, JWT_SECRET, (err, res) => {
+      if (err) {
+        return "token expired";
+      }
+      return res;
+    });
+    console.log(user);
+    if (user == "token expired") {
+      return res.send({ status: "error", data: "token expired" });
+    }
+
+    const userEmail = user.email;
+    User.findOne({ email: userEmail })
       .then((data) => {
         res.send({ status: "ok", data: data });
       })
       .catch((error) => {
         res.send({ status: "error", data: error });
       });
-  } catch (error) {}
+  } catch (error) {
+    res.json({ status: "error", data: "Invalid token" });
+    console.log(error)
+  }
 });
