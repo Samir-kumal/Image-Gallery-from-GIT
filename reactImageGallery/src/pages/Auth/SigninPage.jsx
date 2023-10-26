@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-
+import axios from "axios";
+import { useAuth } from "../../context/AuthProvider";
 const SigninPage = ({ handleShow }) => {
   const [inputValues, setInputValues] = useState({
     email: "",
     password: "",
   });
+  const {getUserData} = useAuth();
 
   const handleInputChange = (e) => {
     setInputValues({
@@ -16,7 +18,20 @@ const SigninPage = ({ handleShow }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(inputValues);
+    axios.post("http://localhost:5000/login", inputValues).then((res) => {
+      const response = res.data;
+      console.log(response.data);
+
+
+      if (response.status  === "ok"){
+        getUserData()
+        alert("Login successful")
+        localStorage.setItem("token",response.data)
+        handleShow(false);
+      }
+      // setuserToken()
+    });
+    // console.log(inputValues);
   };
   return (
     <div className="fixed rounded-2xl h-full w-[90%]  z-50">
@@ -52,7 +67,10 @@ const SigninPage = ({ handleShow }) => {
             <div className="mt-10">
               <form onSubmit={handleSubmit}>
                 <div>
-                  <label className="mb-2.5 block font-extrabold" for="email">
+                  <label
+                    className="mb-2.5 block font-extrabold"
+                    htmlFor="email"
+                  >
                     Email
                   </label>
                   <input
@@ -66,12 +84,15 @@ const SigninPage = ({ handleShow }) => {
                   />
                 </div>
                 <div className="mt-4">
-                  <label className="mb-2.5 block font-extrabold" for="email">
+                  <label
+                    className="mb-2.5 block font-extrabold"
+                    htmlFor="password"
+                  >
                     Password
                   </label>
                   <input
                     type="password"
-                    id="email"
+                    id="password"
                     name="password"
                     className="inline-block w-full rounded-full bg-white p-2.5 leading-none text-black placeholder-indigo-300 shadow"
                     placeholder="Type Password"
@@ -83,7 +104,7 @@ const SigninPage = ({ handleShow }) => {
                   {/* Remember me  */}
                   <div>
                     <input type="checkbox" id="remember" />
-                    <label for="remember" className="mx-2 text-sm">
+                    <label htmlFor="remember" className="mx-2 text-sm">
                       Remember me
                     </label>
                   </div>
@@ -101,13 +122,13 @@ const SigninPage = ({ handleShow }) => {
                   >
                     Login
                   </button>
-                  <NavLink to = {"/Signup"}>
-                  <button
-                    type="submit"
-                    className="w-full rounded-full bg-white text-black px-5 border-2 border-orange-600 py-2 hover:bg-orange-800"
-                  >
-                    Signup
-                  </button>
+                  <NavLink to={"/Signup"}>
+                    <button
+                      type="submit"
+                      className="w-full rounded-full bg-white text-black px-5 border-2 border-orange-600 py-2 hover:bg-orange-800"
+                    >
+                      Signup
+                    </button>
                   </NavLink>
                 </div>
               </form>

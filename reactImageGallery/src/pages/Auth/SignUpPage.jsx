@@ -1,9 +1,14 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const SignUpPage = () => {
   const [inputValues, setInputValues] = useState({
+    firstName: "",
+    lastName: "",
+    phoneNo: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
 
   const handleInputChange = (e) => {
@@ -15,20 +20,29 @@ const SignUpPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(inputValues);
+    setInputValues({
+      firstName: "",
+      lastName: "",
+      phoneNo: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
+    axios
+      .post("http://localhost:5000/register", inputValues)
+      .then((res) => console.log(res))
+      // .then((data) => {
+      //   console.log(data);
+      // });
+
+    // console.log(inputValues);
   };
   return (
     <div className=" rounded-2xl h-full items-center justify-center w-full  z-50">
       <div className="relative flex   h-full w-full flex-col-reverse xl:flex-row lg:flex-row md:flex-row">
-        {/* <button
-          onClick={() => handleShow(false)}
-          className="bg-white rounded-lg z-[60] w-10 h-10 absolute top-0 left-0 flex items-center justify-center font-bold text-2xl"
-        >
-          X
-        </button> */}
         <div className="h-full lg:w-1/2 md:w-1/2 xl:w-1/2 w-full ">
           <div className="mx-auto flex h-full w-2/3 flex-col justify-center text-white xl:w-1/2">
-            <div className = "my-16">
+            <div className="my-16">
               <p className="text-center font-bold text-4xl">Sign Up</p>
             </div>
             <div className="my-6">
@@ -50,49 +64,49 @@ const SignUpPage = () => {
             <div className="mt-10">
               <form className="flex flex-col gap-y-3" onSubmit={handleSubmit}>
                 <div>
-                  <label className="mb-2.5 block font-extrabold" for="email">
+                  <label className="mb-2.5 block font-extrabold" htmlFor="firstName" >
                     First Name
                   </label>
                   <input
-                    type="email"
-                    id="email"
-                    name="email"
+                    type="text"
+                    id="firstName"
+                    name="firstName"
                     className="inline-block w-full rounded-xl bg-white p-2.5 leading-none text-black placeholder-indigo-900 shadow placeholder:opacity-30"
-                    placeholder="mail@user.com"
-                    value={inputValues.email}
+                    placeholder="Enter your first name"
+                    value={inputValues.firstName}
                     onChange={handleInputChange}
                   />
                 </div>
                 <div>
-                  <label className="mb-2.5 block font-extrabold" for="email">
+                  <label className="mb-2.5 block font-extrabold" htmlFor="lastName">
                     Last Name
                   </label>
                   <input
-                    type="email"
-                    id="email"
-                    name="email"
+                    type="text"
+                    id="lastName"
+                    name="lastName"
                     className="inline-block w-full rounded-xl bg-white p-2.5 leading-none text-black placeholder-indigo-900 shadow placeholder:opacity-30"
-                    placeholder="mail@user.com"
-                    value={inputValues.email}
+                    placeholder="Enter your last name"
+                    value={inputValues.lastName}
                     onChange={handleInputChange}
                   />
                 </div>
                 <div>
-                  <label className="mb-2.5 block font-extrabold" for="email">
+                  <label className="mb-2.5 block font-extrabold" htmlFor="phoneNo">
                     Phone No
                   </label>
                   <input
-                    type="email"
-                    id="email"
-                    name="email"
+                    type="number"
+                    id="phoneNo"
+                    name="phoneNo"
                     className="inline-block w-full rounded-xl bg-white p-2.5 leading-none text-black placeholder-indigo-900 shadow placeholder:opacity-30"
-                    placeholder="mail@user.com"
-                    value={inputValues.email}
+                    placeholder="Enter your phone no"
+                    value={inputValues.phoneNo}
                     onChange={handleInputChange}
                   />
                 </div>
                 <div>
-                  <label className="mb-2.5 block font-extrabold" for="email">
+                  <label className="mb-2.5 block font-extrabold" htmlFor="email">
                     Email
                   </label>
                   <input
@@ -100,38 +114,40 @@ const SignUpPage = () => {
                     id="email"
                     name="email"
                     className="inline-block w-full rounded-xl bg-white p-2.5 leading-none text-black placeholder-indigo-900 shadow placeholder:opacity-30"
-                    placeholder="mail@user.com"
+                    placeholder="Enter your email"
                     value={inputValues.email}
                     onChange={handleInputChange}
                   />
                 </div>
-                <div className="mt-4">
-                  <label className="mb-2.5 block font-extrabold" for="email">
+                <div>
+                  <label className="mb-2.5 block font-extrabold" htmlFor="password">
                     Password
                   </label>
                   <input
                     type="password"
-                    id="email"
+                    id="password"
                     name="password"
-                    className="inline-block w-full rounded-xl bg-white p-2.5 leading-none text-black placeholder-indigo-900 shadow"
+                    className="inline-block w-full rounded-xl bg-white p-2.5 leading-none text-black placeholder-indigo-900 shadow placeholder:opacity-30"
+                    placeholder="Enter your password"
                     value={inputValues.password}
                     onChange={handleInputChange}
                   />
                 </div>
-                <div className="mt-4">
-                  <label className="mb-2.5 block font-extrabold" for="email">
+                <div>
+                  <label className="mb-2.5 block font-extrabold" htmlFor="confirmPassword">
                     Confirm Password
                   </label>
                   <input
                     type="password"
-                    id="email"
-                    name="password"
-                    className="inline-block w-full rounded-xl bg-white p-2.5 leading-none text-black placeholder-indigo-900 shadow"
-                    value={inputValues.password}
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    className="inline-block w-full rounded-xl bg-white p-2.5 leading-none text-black placeholder-indigo-900 shadow placeholder:opacity-30"
+                    placeholder="Enter your confirm Password"
+                    value={inputValues.confirmPassword}
                     onChange={handleInputChange}
                   />
                 </div>
-                
+
                 <div className="my-10">
                   <button
                     type="submit"
