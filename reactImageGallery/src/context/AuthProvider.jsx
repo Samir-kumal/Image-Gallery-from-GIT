@@ -1,51 +1,46 @@
-import React, { createContext, useContext, useMemo, useState } from "react";
+import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 import axios from "axios";
 const AuthContext = createContext(null);
 
 export const useAuth = () => useContext(AuthContext);
+const token = localStorage.getItem("token");
 
 const AuthProvider = ({ children }) => {
-  //   const [userToken, setUserToken] = useState(null);
-  const token = localStorage.getItem("token");
+  const [userData, setUserData] = useState(null);
 
-  if (!token) {
-    console.log("Token not found in the localstorage");
-    return;
-  }
+  useEffect(() => {
+    if (token) {
+      getUserData();
+    }
+  }, []);
 
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-
-  const getUserData = () => {
-    fetch("http://localhost:5000/userdata", {
-      method: "POST",
-    //   crossDomain: true,
-      headers: {
-        "Content-type": "application/json",
-        Accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-      body: JSON.stringify({
-        token: token,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data, "userData");
+  const getUserData = (Usertoken) => {
+    axios
+      .post("http://localhost:5000/userdata", {
+        token: Usertoken || token,
+      })
+      .then((response) => {
+        if (response.data) {
+          console.log(response.data, "userData");
+          setUserData(response.data.data);
+        } else {
+          console.log("No user data received");
+        }
+      })
+      .catch((error) => {
+        console.error("An error occurred:", error);
       });
   };
 
-  //   const values = useMemo(()=>{
-  //     userToken,
-  //     setUserToken,
-  //     handleUserToken
-  //   }, userToken)
+  useEffect(()=>{
+    console.log(userData)
+  },[userData])
 
+  
+
+  
   return (
-    <AuthContext.Provider value={{ getUserData }}>
+    <AuthContext.Provider value={{userData,getUserData}}>
       {children}
     </AuthContext.Provider>
   );

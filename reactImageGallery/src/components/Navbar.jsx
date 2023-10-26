@@ -16,7 +16,7 @@ const Navbar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenSub, setIsOpenSub] = useState(false);
   const { Images, setImages, search, setSearch, isloading, setIsLoading } =
-  useDataProvider();
+    useDataProvider();
 
   let menuRef = useRef();
   let menuRefSub = useRef();
@@ -41,10 +41,19 @@ const Navbar = (props) => {
   // });
   useEffect(() => {
     let handler = (e) => {
-      if (window.innerWidth < 1021 && menuRef && menuRef.current && !menuRef.current.contains(e.target)) {
+      if (
+        window.innerWidth < 1021 &&
+        menuRef &&
+        menuRef.current &&
+        !menuRef.current.contains(e.target)
+      ) {
         setIsOpen(false);
       }
-      if (menuRefSub && menuRefSub.current && !menuRefSub.current.contains(e.target)) {
+      if (
+        menuRefSub &&
+        menuRefSub.current &&
+        !menuRefSub.current.contains(e.target)
+      ) {
         setIsOpenSub(false);
       }
     };
@@ -76,83 +85,87 @@ const Navbar = (props) => {
     // setSearchInput(e.target.value)
     setSearch(value);
     // console.log(value)
-  }
+  };
 
   if (location.pathname === "/") {
-    return(
-    <nav
-      className="w-full h-24 bg-[#151313] relative flex items-center justify-between px-2"
-      ref={menuRef}
-    >
-      <div className="logo">
-        <NavLink to={"/"}>
-          {" "}
-          <img src={logo} alt="" height={img.height} width={img.width} />
-        </NavLink>
-      </div>
-      {}
-
-      {isOpen && (
-        <div className={`menuItems  p-2  w-max ${isOpen ? "open" : ""}`}>
-          <ul className=" gap-12 lg:flex md:inline lg:static text-white ">
-            <li ref={menuRefSub}>
-              <NavLink to={"/"}>HOME</NavLink>
-            </li>
-            <li>
-              <NavLink to={"/Images"}>IMAGES</NavLink>
-            </li>
-            <li>
-              <NavLink to={"/About"}>ABOUT</NavLink>
-            </li>
-            <li>
-              <NavLink to={"/Explore"}>EXPLORE</NavLink>
-            </li>
-            <li>
-              <NavLink to={"/Contacts"}>CONTACTS</NavLink>
-            </li>
-          </ul>
-        </div>
-      )}
-      <button
-        onClick={() => setIsOpen((prev) => !prev)}
-        className="menuButton lg:invisible md:visible"
+    return (
+      <nav
+        className="w-full h-24 bg-[#151313] relative flex items-center justify-between px-2"
+        ref={menuRef}
       >
-        <svg
-          width="40"
-          height="33"
-          viewBox="0 0 50 33"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+        <div className="logo">
+          <NavLink to={"/"}>
+            {" "}
+            <img src={logo} alt="" height={img.height} width={img.width} />
+          </NavLink>
+        </div>
+        {}
+
+        {isOpen && (
+          <div className={`menuItems  p-2  w-max ${isOpen ? "open" : ""}`}>
+            <ul className=" gap-12 lg:flex md:inline lg:static text-white ">
+              <li ref={menuRefSub}>
+                <NavLink to={"/"}>HOME</NavLink>
+              </li>
+              <li>
+                <NavLink to={"/Images"}>IMAGES</NavLink>
+              </li>
+              <li>
+                <NavLink to={"/About"}>ABOUT</NavLink>
+              </li>
+              <li>
+                <NavLink to={"/Explore"}>EXPLORE</NavLink>
+              </li>
+              <li>
+                <NavLink to={"/Contacts"}>CONTACTS</NavLink>
+              </li>
+            </ul>
+          </div>
+        )}
+        <button onClick={()=> alert("clicked")} className="lg:flex xl:flex hidden h-12 w-12 mr-4  items-center justify-center bg-white rounded-full">
+          
+        </button>
+        <button
+          onClick={() => setIsOpen((prev) => !prev)}
+          className="menuButton block lg:hidden xl:hidden 2xl:hidden"
         >
-          <line
-            x1="1"
-            y1="1.5"
-            x2="40"
-            y2="1.5"
-            stroke="white"
-            strokeWidth="3"
-          />
-          <line
-            x1="1"
-            y1="31.5"
-            x2="40"
-            y2="31.5"
-            stroke="white"
-            strokeWidth="3"
-          />
-          <line
-            x1="0.999369"
-            y1="16.5206"
-            x2="40"
-            y2="16.5"
-            stroke="white"
-            strokeWidth="3"
-          />
-        </svg>
-      </button>
-    </nav>
-  );}
-  return(
+          <svg
+            width="40"
+            height="33"
+            viewBox="0 0 50 33"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <line
+              x1="1"
+              y1="1.5"
+              x2="40"
+              y2="1.5"
+              stroke="white"
+              strokeWidth="3"
+            />
+            <line
+              x1="1"
+              y1="31.5"
+              x2="40"
+              y2="31.5"
+              stroke="white"
+              strokeWidth="3"
+            />
+            <line
+              x1="0.999369"
+              y1="16.5206"
+              x2="40"
+              y2="16.5"
+              stroke="white"
+              strokeWidth="3"
+            />
+          </svg>
+        </button>
+      </nav>
+    );
+  }
+  return (
     <nav
       className="w-full h-24 bg-[#151313] relative flex items-center justify-between px-2"
       ref={menuRef}
@@ -167,7 +180,11 @@ const Navbar = (props) => {
 
       <Search handleSearch={handleSearch_function} />
       {isOpen && (
-        <div className={`menuItems  p-2 z-20 opacity-80  w-max ${isOpen ? "open" : ""}`}>
+        <div
+          className={`menuItems  p-2 z-20 opacity-80  w-max ${
+            isOpen ? "open" : ""
+          }`}
+        >
           <ul className=" gap-12 lg:flex z-20  md:inline lg:static text-white ">
             <li ref={menuRefSub}>
               <NavLink to={"/"}>HOME</NavLink>
@@ -225,8 +242,7 @@ const Navbar = (props) => {
         </svg>
       </button>
     </nav>
-
-  )
+  );
 };
 
 export default Navbar;

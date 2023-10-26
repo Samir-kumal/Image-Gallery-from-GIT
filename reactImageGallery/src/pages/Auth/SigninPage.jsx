@@ -7,7 +7,7 @@ const SigninPage = ({ handleShow }) => {
     email: "",
     password: "",
   });
-  const {getUserData} = useAuth();
+  const { getUserData } = useAuth();
 
   const handleInputChange = (e) => {
     setInputValues({
@@ -22,11 +22,13 @@ const SigninPage = ({ handleShow }) => {
       const response = res.data;
       console.log(response.data);
 
+      if (response.status === "ok") {
+        getUserData(response.data)
+        alert("Login successful");
+        if(response.data){
 
-      if (response.status  === "ok"){
-        getUserData()
-        alert("Login successful")
-        localStorage.setItem("token",response.data)
+          localStorage.setItem("token", response.data);
+        }
         handleShow(false);
       }
       // setuserToken()
