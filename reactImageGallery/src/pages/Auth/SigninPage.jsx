@@ -2,12 +2,44 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../../context/AuthProvider";
+import { GoogleLogin } from "@react-oauth/google";
+import { useFormik } from "formik";
+
+import * as Yup from "yup";
+
 const SigninPage = ({ handleShow }) => {
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .email("Invalid email address")
+        .required("Email Required"),
+      password: Yup.string().required("Password Required"),
+    }),
+    onSubmit: (values) => {
+      axios.post("http://localhost:5000/login", values).then((res) => {
+        const response = res.data;
+        console.log(response.data);
+
+        if (response.status === "ok") {
+          getUserData(response.data);
+          alert("Login successful");
+          if (response.data) {
+            localStorage.setItem("token", response.data);
+          }
+          handleShow(false);
+        }
+      });
+    },
+  });
   const [inputValues, setInputValues] = useState({
     email: "",
     password: "",
   });
-  const { getUserData } = useAuth();
+  const { getUserData,handleGoogleSigninToken } = useAuth();
 
   const handleInputChange = (e) => {
     setInputValues({
@@ -16,48 +48,37 @@ const SigninPage = ({ handleShow }) => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    axios.post("http://localhost:5000/login", inputValues).then((res) => {
-      const response = res.data;
-      console.log(response.data);
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
 
-      if (response.status === "ok") {
-        getUserData(response.data)
-        alert("Login successful");
-        if(response.data){
-
-          localStorage.setItem("token", response.data);
-        }
-        handleShow(false);
-      }
-      // setuserToken()
-    });
-    // console.log(inputValues);
-  };
+  //   // console.log(inputValues);
+  // };
   return (
     <div className="fixed rounded-2xl h-full w-[90%]  z-50">
       <div className="relative flex  h-full w-full flex-col-reverse xl:flex-row lg:flex-row md:flex-row">
         <button
           onClick={() => handleShow(false)}
-          className="bg-white rounded-lg z-[60] w-10 h-10 absolute top-0 left-0 flex items-center justify-center font-bold text-2xl"
+          className="bg-white rounded-sm z-[60] w-8 h-8 absolute top-0 left-0 flex items-center justify-center font-bold text-2xl"
         >
           X
         </button>
         <div className="h-full lg:w-1/2 md:w-1/2 xl:w-1/2 w-full bg-black">
           <div className="mx-auto flex h-full w-2/3 flex-col justify-center text-white xl:w-1/2">
-            <div>
+            <div className=" ">
               <p className="text-2xl">Login|</p>
               <p>please login to continue|</p>
             </div>
-            <div className="my-6">
-              <button className="flex w-full justify-center rounded-3xl border-none bg-white p-1 text-black hover:bg-gray-200 sm:p-2">
-                <img
-                  src="https://freesvg.org/img/1534129544.png"
-                  className="mr-2 w-6 object-fill"
-                />
-                Sign in with Google
-              </button>
+            <div className="my-6 w-full flex items-center justify-center">
+              <GoogleLogin
+                onSuccess={(credentialResponse) => {
+                  console.log(credentialResponse);
+                  handleGoogleSigninToken(credentialResponse.credential);
+
+                }}
+                onError={() => {
+                  console.log("login failed");
+                }}
+              />
             </div>
             <div>
               <fieldset className="border-t border-solid border-gray-600">
@@ -67,7 +88,7 @@ const SigninPage = ({ handleShow }) => {
               </fieldset>
             </div>
             <div className="mt-10">
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={formik.handleSubmit}>
                 <div>
                   <label
                     className="mb-2.5 block font-extrabold"
@@ -79,11 +100,19 @@ const SigninPage = ({ handleShow }) => {
                     type="email"
                     id="email"
                     name="email"
-                    className="inline-block w-full rounded-full bg-white p-2.5 leading-none text-black placeholder-indigo-300 shadow "
+                    className={
+                      formik.touched.email && formik.errors.email
+                        ? `inline-block w-full rounded-full bg-white border-2 border-red-600 p-2.5 leading-none text-black placeholder-indigo-300 shadow`
+                        : `inline-block w-full rounded-full bg-white p-2.5 leading-none text-black placeholder-indigo-300 shadow`
+                    }
                     placeholder="Enter Email"
-                    value={inputValues.email}
-                    onChange={handleInputChange}
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                   />
+                  {formik.touched.email && formik.errors.email && (
+                    <p className="text-red-600">{formik.errors.email}</p>
+                  )}
                 </div>
                 <div className="mt-4">
                   <label
@@ -96,11 +125,20 @@ const SigninPage = ({ handleShow }) => {
                     type="password"
                     id="password"
                     name="password"
-                    className="inline-block w-full rounded-full bg-white p-2.5 leading-none text-black placeholder-indigo-300 shadow"
+                    className={
+                      formik.touched.password && formik.errors.password
+                        ? `inline-block w-full rounded-full bg-white border-2 border-red-600 p-2.5 leading-none text-black placeholder-indigo-300 shadow`
+                        : `inline-block w-full rounded-full bg-white p-2.5 leading-none text-black placeholder-indigo-300 shadow`
+                    }
                     placeholder="Type Password"
-                    value={inputValues.password}
-                    onChange={handleInputChange}
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+
                   />
+                  {formik.touched.password && formik.errors.password && (
+                    <p className="text-red-600">{formik.errors.password}</p>
+                  )}
                 </div>
                 <div className="mt-4 flex w-full flex-col justify-between sm:flex-row">
                   {/* Remember me  */}
