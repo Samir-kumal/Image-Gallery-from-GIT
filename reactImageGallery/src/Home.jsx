@@ -12,15 +12,15 @@ const Home = () => {
   const [isError, setIsError] = useState();
   const { Images, setImages, search, setSearch, isloading, setIsLoading } =
     useDataProvider();
-  const { userData } = useAuth();
-  const [loading, setLoading] = useState(true);
+    const {userData} = useAuth();
+    const [loading, setLoading] = useState(true);
 
   const handleSearch = (searchInput) => {
     // update the search state with the searchInput value
     setSearch(searchInput);
   };
 
-  let content = null;
+  let content = null; 
   if (isloading) {
     content = (
       <div className="w-full h-[100vh] flex items-center justify-center bg-[#151313]">
@@ -28,11 +28,9 @@ const Home = () => {
       </div>
     );
   } else if (!isloading && Images.length === 0) {
-    content = (
-      <div className="w-full h-[100vh] flex items-center justify-center bg-[#151313]">
-        <h1 className="text-6xl text-white">No Results!</h1>
-      </div>
-    );
+    content =   <div className="w-full h-[100vh] flex items-center justify-center bg-[#151313]">
+      <h1 className="text-6xl text-white">No Results!</h1>
+    </div>;
   } else if (!isloading && isError) {
     content = <h1 className="text-6xl text-white">No Results!</h1>;
   }
@@ -42,35 +40,15 @@ const Home = () => {
   };
   const [show, setShow] = useState(false);
 
-  useEffect(() => {
-    
-    if (userData) {
-      setShow(false);
-      setTimeout(() => {
-        setLoading(false);
-      }, 4000);
-    } else {
-      
-      setTimeout(() => {
-        setLoading(false);
-        setTimeout(() => {
-          setShow(true);
-        }, 3000);
-      }, 4000);
-    }
-  }, [userData]);
+ 
 
   return (
     <>
-      <Navbar />
-      {loading ? (
-        <div className="h-screen w-screen bg-white opacity-25"></div>
-      ) : (
-        show && (
-          <div className="relative w-full flex justify-center items-center h-[80vh]">
-            <SigninPage handleShow={setShow} />
-          </div>
-        )
+    <Navbar handleShow = {setShow} userData = {userData}/>
+      {show && (
+        <div className="relative w-full flex justify-center items-center h-[80vh]">
+          <SigninPage handleShow={setShow} />
+        </div>
       )}
 
       <div className="mt-4">

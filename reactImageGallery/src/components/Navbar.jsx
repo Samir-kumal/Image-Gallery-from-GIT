@@ -7,38 +7,31 @@ import { NavLink } from "react-router-dom";
 import Search from "./Search";
 import { useLocation } from "react-router-dom";
 import { useDataProvider } from "../context/DataProvider";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useAuth } from "../context/AuthProvider";
 
 const Navbar = (props) => {
   const img = {
-    height: 50,
-    width: 50,
+    height: 130,
+    width: 130,
   };
+  const { handleShow, userData } = props;
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenSub, setIsOpenSub] = useState(false);
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const { Images, setImages, search, setSearch, isloading, setIsLoading } =
     useDataProvider();
+  const { setUserData } = useAuth();
 
   let menuRef = useRef();
   let menuRefSub = useRef();
 
-  // useEffect(() => {
-  //   let handler = (e) => {
-  //     if (window.innerWidth < 1021 && !menuRef.current.contains(e.target)) {
-  //       setIsOpen(false);
-  //     }
-  //     if (!menuRefSub.current.contains(e.target)) {
-  //       setIsOpenSub(false);
-  //     }
-  //   };
-  //   document.addEventListener("mousedown", handler);
+  const handleLogout = () => {
+    localStorage.clear();
+    alert("logged out successfully");
+    setUserData(null);
+  };
 
-  //   window.addEventListener("beforeunload", () => setIsOpen(true));
-  //   window.addEventListener("beforeunload", () => setIsOpenSub(false));
-
-  //   return () => {
-  //     document.removeEventListener("mousedown", handler);
-  //   };
-  // });
   useEffect(() => {
     let handler = (e) => {
       if (
@@ -122,9 +115,43 @@ const Navbar = (props) => {
             </ul>
           </div>
         )}
-        <button onClick={()=> alert("clicked")} className="lg:flex xl:flex hidden h-12 w-12 mr-4  items-center justify-center bg-white rounded-full">
-          
-        </button>
+        {userData ? (
+          <div className="flex-col  w-32 relative items-center justify-center">
+            <div className=" flex items-center justify-center mb-4">
+              <button
+                onClick={() => setIsProfileMenuOpen((prev) => !prev)}
+                className="lg:flex xl:flex hidden h-12 w-12 mr-4  items-center justify-center bg-white rounded-full"
+              >
+                <img className="rounded-full h-full w-full" src={userData.picture} alt=""  />
+              </button>
+            </div>
+            {isProfileMenuOpen && (
+              <div className="border-[1px] absolute right-1">
+                <ul className="text-white p-2">
+                  <li>Welcome,{userData.fname || userData.name}</li>
+                  <li>profile</li>
+                  <li>settings</li>
+                  <li>
+                    {" "}
+                    <button onClick={handleLogout}>logout</button>
+                  </li>
+                </ul>
+              </div>
+            )}
+          </div>
+        ) : (
+          <button
+            onClick={() => handleShow(true)}
+            className="text-white border-[0.5px] p-[12px] w-28 hidden lg:block xl:block border-white"
+          >
+            login
+            <FontAwesomeIcon
+              icon="far fa-arrow-alt-circle-right"
+              color="white"
+              size="30"
+            />
+          </button>
+        )}
         <button
           onClick={() => setIsOpen((prev) => !prev)}
           className="menuButton block lg:hidden xl:hidden 2xl:hidden"
