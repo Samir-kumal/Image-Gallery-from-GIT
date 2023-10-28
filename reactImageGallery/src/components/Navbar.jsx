@@ -90,7 +90,7 @@ const Navbar = (props) => {
   if (location.pathname === "/") {
     return (
       <nav
-        className="w-full h-24 bg-[#151313] relative flex items-center justify-between px-2"
+        className="w-full h-24 bg-[#f9f8f8] relative flex items-center justify-between px-2 "
         ref={menuRef}
       >
         <div className="logo">
@@ -102,8 +102,8 @@ const Navbar = (props) => {
         {}
 
         {isOpen && (
-          <div className={`menuItems  p-2  w-max ${isOpen ? "open" : ""}`}>
-            <ul className=" gap-12 lg:flex md:inline lg:static text-white ">
+          <div className={`menuItems  p-0  w-max ${isOpen ? "open" : ""}`}>
+            <ul className=" gap-12 lg:flex md:inline lg:static text-black bg-[#f9f8f8]">
               <li ref={menuRefSub}>
                 <NavLink to={"/"}>HOME</NavLink>
               </li>
@@ -122,9 +122,10 @@ const Navbar = (props) => {
             </ul>
           </div>
         )}
-        <button onClick={()=> alert("clicked")} className="lg:flex xl:flex hidden h-12 w-12 mr-4  items-center justify-center bg-white rounded-full">
-          
-        </button>
+        <button
+          onClick={() => alert("clicked")}
+          className="lg:flex xl:flex hidden h-12 w-12 mr-4  items-center justify-center bg-white rounded-full"
+        ></button>
         <button
           onClick={() => setIsOpen((prev) => !prev)}
           className="menuButton block lg:hidden xl:hidden 2xl:hidden"
@@ -141,7 +142,7 @@ const Navbar = (props) => {
               y1="1.5"
               x2="40"
               y2="1.5"
-              stroke="white"
+              stroke="black"
               strokeWidth="3"
             />
             <line
@@ -149,7 +150,7 @@ const Navbar = (props) => {
               y1="31.5"
               x2="40"
               y2="31.5"
-              stroke="white"
+              stroke="black"
               strokeWidth="3"
             />
             <line
@@ -157,7 +158,7 @@ const Navbar = (props) => {
               y1="16.5206"
               x2="40"
               y2="16.5"
-              stroke="white"
+              stroke="black"
               strokeWidth="3"
             />
           </svg>
@@ -167,7 +168,7 @@ const Navbar = (props) => {
   }
   return (
     <nav
-      className="w-full h-24 bg-[#151313] relative flex items-center justify-between px-2"
+      className="w-full h-24 bg-[#f4f1f1] relative flex items-center  justify-between px-2"
       ref={menuRef}
     >
       <div className="logo">
@@ -180,11 +181,7 @@ const Navbar = (props) => {
 
       <Search handleSearch={handleSearch_function} />
       {isOpen && (
-        <div
-          className={`menuItems  p-2 z-20 opacity-80  w-max ${
-            isOpen ? "open" : ""
-          }`}
-        >
+        <div className={`menuItems  p-0  w-max ${isOpen ? "open" : ""}`}>
           <ul className=" gap-12 lg:flex z-20  md:inline lg:static text-white ">
             <li ref={menuRefSub}>
               <NavLink to={"/"}>HOME</NavLink>
