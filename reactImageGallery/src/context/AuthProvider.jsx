@@ -58,7 +58,6 @@ const AuthProvider = ({ children }) => {
     localStorage.setItem("googleToken", token);
     const decrptedValues = jwtDecode(token);
     setUserData(decrptedValues);
-    location.href = "/"
   };
 
   return (

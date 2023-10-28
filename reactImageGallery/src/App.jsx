@@ -11,24 +11,30 @@ import { useDataProvider } from "./context/DataProvider";
 import SignUpPage from "./pages/Auth/SignUpPage";
 
 function App() {
-  const { Images, setImages, search, setSearch, isloading, setIsLoading } =
-    useDataProvider();
+  const [isLoading, setIsLoading] = useState(true);
 
-  const handleSearch = (searchInput) => {
-    // update the search state with the searchInput value
-    setSearch(searchInput);
-  };
-
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  });
   return (
     <BrowserRouter>
-      {/* <Navbar /> */}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/About" element={<About />} />
-        <Route path="/Explore" element={<ExplorePage />} />
-        <Route path="/Signup" element={<SignUpPage />} />
-      </Routes>
-      <Footer />
+      {isLoading ? (
+        <div className="w-screen h-screen flex items-center justify-center bg-[#151313] ">
+          <div className=" text-white font-bold text-4xl" > loading...</div>
+        </div>
+      ) : (
+        <>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/About" element={<About />} />
+            <Route path="/Explore" element={<ExplorePage />} />
+            <Route path="/Signup" element={<SignUpPage />} />
+          </Routes>
+          <Footer />
+        </>
+      )}
     </BrowserRouter>
   );
 }
