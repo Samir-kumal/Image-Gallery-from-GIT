@@ -27,6 +27,7 @@ const Navbar = (props) => {
   let menuRefSub = useRef();
 
   const handleLogout = () => {
+    window.location.href = "/"
     localStorage.clear();
     alert("logged out successfully");
     setUserData(null);

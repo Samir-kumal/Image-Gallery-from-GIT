@@ -8,6 +8,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 const SigninPage = ({ handleShow }) => {
+  const { getUserData, handleGoogleSigninToken } = useAuth();
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -35,24 +37,9 @@ const SigninPage = ({ handleShow }) => {
       });
     },
   });
-  const [inputValues, setInputValues] = useState({
-    email: "",
-    password: "",
-  });
-  const { getUserData,handleGoogleSigninToken } = useAuth();
+ 
 
-  const handleInputChange = (e) => {
-    setInputValues({
-      ...inputValues,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   // console.log(inputValues);
-  // };
+ 
   return (
     <div className="fixed rounded-2xl h-full w-[90%]  z-50">
       <div className="relative flex  h-full w-full flex-col-reverse xl:flex-row lg:flex-row md:flex-row">
@@ -72,8 +59,9 @@ const SigninPage = ({ handleShow }) => {
               <GoogleLogin
                 onSuccess={(credentialResponse) => {
                   console.log(credentialResponse);
-                  handleGoogleSigninToken(credentialResponse.credential);
+                  location.href = "/";
 
+                  handleGoogleSigninToken(credentialResponse.credential);
                 }}
                 onError={() => {
                   console.log("login failed");
@@ -134,7 +122,6 @@ const SigninPage = ({ handleShow }) => {
                     value={formik.values.password}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-
                   />
                   {formik.touched.password && formik.errors.password && (
                     <p className="text-red-600">{formik.errors.password}</p>
