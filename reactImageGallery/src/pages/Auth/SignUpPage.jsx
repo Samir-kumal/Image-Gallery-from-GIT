@@ -1,42 +1,47 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { getFormLabelUtilityClasses } from "@mui/material";
 
 const SignUpPage = () => {
-  const [inputValues, setInputValues] = useState({
-    firstName: "",
-    lastName: "",
-    phoneNo: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
-
-  const handleInputChange = (e) => {
-    setInputValues({
-      ...inputValues,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setInputValues({
+  const formik = useFormik({
+    initialValues: {
       firstName: "",
       lastName: "",
+      email:"",
       phoneNo: "",
-      email: "",
       password: "",
       confirmPassword: "",
-    });
-    axios
-      .post("http://localhost:5000/register", inputValues)
-      .then((res) => console.log(res))
-      // .then((data) => {
-      //   console.log(data);
-      // });
+    },
+    validationSchema: Yup.object({
+      firstName: Yup.string()
+        .max(15, "Must be 15 characters or less")
+        .required("Required"),
+      lastName: Yup.string()
+        .max(15, "Must be 15 characters or less")
+        .required("Required"),
+      phoneNo: Yup.string()
+        .max(15, "Must be 15 characters or less")
+        .required("Required"),
+      email: Yup.string().email("Invalid email address").required("Required"),
+      password: Yup.string()
+        .min(8, "Must be atleast 8 or more")
+        .required("Required"),
+      confirmPassword: Yup.string()
+        .max(15, "Must be 15 characters or less")
+        .required("Required")
+        .oneOf([Yup.ref("password")], "Passwords must Match"),
+    }),
+    onSubmit: (values) => {
+      alert("signed up successfully");
+      axios
+        .post("http://localhost:5000/register", values)
+        .then((res) => console.log(res));
+      location.href = "/";
+    },
+  });
 
-    // console.log(inputValues);
-  };
   return (
     <div className=" rounded-2xl h-full items-center justify-center w-full  z-50">
       <div className="relative flex   h-full w-full flex-col-reverse xl:flex-row lg:flex-row md:flex-row">
@@ -62,90 +67,163 @@ const SignUpPage = () => {
               </fieldset>
             </div>
             <div className="mt-10">
-              <form className="flex flex-col gap-y-3" onSubmit={handleSubmit}>
+              <form
+                className="flex flex-col gap-y-3"
+                onSubmit={formik.handleSubmit}
+              >
                 <div>
-                  <label className="mb-2.5 block font-extrabold" htmlFor="firstName" >
+                  <label
+                    className="mb-2.5 block font-extrabold"
+                    htmlFor="firstName"
+                  >
                     First Name
                   </label>
                   <input
                     type="text"
                     id="firstName"
                     name="firstName"
-                    className="inline-block w-full rounded-xl bg-white p-2.5 leading-none text-black placeholder-indigo-900 shadow placeholder:opacity-30"
+                    className={
+                      formik.touched.firstName && formik.errors.firstName
+                        ? "inline-block w-full rounded-xl bg-white p-2.5 border-2 border-red-600 leading-none text-black placeholder-indigo-900 shadow placeholder:opacity-30"
+                        : "inline-block w-full rounded-xl bg-white p-2.5 leading-none text-black placeholder-indigo-900 shadow placeholder:opacity-30"
+                    }
                     placeholder="Enter your first name"
-                    value={inputValues.firstName}
-                    onChange={handleInputChange}
+                    value={formik.values.firstName}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                   />
+                  {formik.touched.firstName && formik.errors.firstName && (
+                    <p className="text-red-600">{formik.errors.firstName}</p>
+                  )}
                 </div>
                 <div>
-                  <label className="mb-2.5 block font-extrabold" htmlFor="lastName">
+                  <label
+                    className="mb-2.5 block font-extrabold"
+                    htmlFor="lastName"
+                  >
                     Last Name
                   </label>
                   <input
                     type="text"
                     id="lastName"
                     name="lastName"
-                    className="inline-block w-full rounded-xl bg-white p-2.5 leading-none text-black placeholder-indigo-900 shadow placeholder:opacity-30"
+                    className={
+                      formik.touched.lastName && formik.errors.lastName
+                        ? "inline-block w-full rounded-xl bg-white p-2.5 border-2 border-red-600 leading-none text-black placeholder-indigo-900 shadow placeholder:opacity-30"
+                        : "inline-block w-full rounded-xl bg-white p-2.5 leading-none text-black placeholder-indigo-900 shadow placeholder:opacity-30"
+                    }
                     placeholder="Enter your last name"
-                    value={inputValues.lastName}
-                    onChange={handleInputChange}
+                    value={formik.values.lastName}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                   />
+                  {formik.touched.lastName && formik.errors.lastName && (
+                    <p className="text-red-600">{formik.errors.lastName}</p>
+                  )}
                 </div>
                 <div>
-                  <label className="mb-2.5 block font-extrabold" htmlFor="phoneNo">
+                  <label
+                    className="mb-2.5 block font-extrabold"
+                    htmlFor="phoneNo"
+                  >
                     Phone No
                   </label>
                   <input
                     type="number"
                     id="phoneNo"
                     name="phoneNo"
-                    className="inline-block w-full rounded-xl bg-white p-2.5 leading-none text-black placeholder-indigo-900 shadow placeholder:opacity-30"
+                    className={
+                      formik.touched.phoneNo && formik.errors.phoneNo
+                        ? "inline-block w-full rounded-xl bg-white p-2.5 border-2 border-red-600 leading-none text-black placeholder-indigo-900 shadow placeholder:opacity-30"
+                        : "inline-block w-full rounded-xl bg-white p-2.5 leading-none text-black placeholder-indigo-900 shadow placeholder:opacity-30"
+                    }
                     placeholder="Enter your phone no"
-                    value={inputValues.phoneNo}
-                    onChange={handleInputChange}
+                    value={formik.values.phoneNo}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                   />
+                  {formik.touched.phoneNo && formik.errors.phoneNo && (
+                    <p className="text-red-600">{formik.errors.phoneNo}</p>
+                  )}
                 </div>
                 <div>
-                  <label className="mb-2.5 block font-extrabold" htmlFor="email">
+                  <label
+                    className="mb-2.5 block font-extrabold"
+                    htmlFor="email"
+                  >
                     Email
                   </label>
                   <input
                     type="email"
                     id="email"
                     name="email"
-                    className="inline-block w-full rounded-xl bg-white p-2.5 leading-none text-black placeholder-indigo-900 shadow placeholder:opacity-30"
+                    className={
+                      formik.touched.email && formik.errors.email
+                        ? "inline-block w-full rounded-xl bg-white p-2.5 border-2 border-red-600 leading-none text-black placeholder-indigo-900 shadow placeholder:opacity-30"
+                        : "inline-block w-full rounded-xl bg-white p-2.5 leading-none text-black placeholder-indigo-900 shadow placeholder:opacity-30"
+                    }
                     placeholder="Enter your email"
-                    value={inputValues.email}
-                    onChange={handleInputChange}
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                   />
+                  {formik.touched.email && formik.errors.email && (
+                    <p className="text-red-600">{formik.errors.email}</p>
+                  )}
                 </div>
                 <div>
-                  <label className="mb-2.5 block font-extrabold" htmlFor="password">
+                  <label
+                    className="mb-2.5 block font-extrabold"
+                    htmlFor="password"
+                  >
                     Password
                   </label>
                   <input
                     type="password"
                     id="password"
                     name="password"
-                    className="inline-block w-full rounded-xl bg-white p-2.5 leading-none text-black placeholder-indigo-900 shadow placeholder:opacity-30"
+                    className={
+                      formik.touched.password && formik.errors.password
+                        ? "inline-block w-full rounded-xl bg-white p-2.5 border-2 border-red-600 leading-none text-black placeholder-indigo-900 shadow placeholder:opacity-30"
+                        : "inline-block w-full rounded-xl bg-white p-2.5 leading-none text-black placeholder-indigo-900 shadow placeholder:opacity-30"
+                    }
                     placeholder="Enter your password"
-                    value={inputValues.password}
-                    onChange={handleInputChange}
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                   />
+                  {formik.touched.password && formik.errors.password && (
+                    <p className="text-red-600">{formik.errors.password}</p>
+                  )}
                 </div>
                 <div>
-                  <label className="mb-2.5 block font-extrabold" htmlFor="confirmPassword">
+                  <label
+                    className="mb-2.5 block font-extrabold"
+                    htmlFor="confirmPassword"
+                  >
                     Confirm Password
                   </label>
                   <input
                     type="password"
                     id="confirmPassword"
                     name="confirmPassword"
-                    className="inline-block w-full rounded-xl bg-white p-2.5 leading-none text-black placeholder-indigo-900 shadow placeholder:opacity-30"
+                    className={
+                      formik.touched.confirmPassword &&
+                      formik.errors.confirmPassword
+                        ? "inline-block w-full rounded-xl bg-white p-2.5 border-2 border-red-600 leading-none text-black placeholder-indigo-900 shadow placeholder:opacity-30"
+                        : "inline-block w-full rounded-xl bg-white p-2.5 leading-none text-black placeholder-indigo-900 shadow placeholder:opacity-30"
+                    }
                     placeholder="Enter your confirm Password"
-                    value={inputValues.confirmPassword}
-                    onChange={handleInputChange}
+                    value={formik.values.confirmPassword}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                   />
+                  {formik.touched.confirmPassword &&
+                    formik.errors.confirmPassword && (
+                      <p className="text-red-600">
+                        {formik.errors.confirmPassword}
+                      </p>
+                    )}
                 </div>
 
                 <div className="my-10">
