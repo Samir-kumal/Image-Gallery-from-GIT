@@ -41,18 +41,19 @@ const Home = () => {
               fill="currentFill"
             />
           </svg>
+
           <span class="sr-only">Loading...</span>
         </div>
       </div>
     );
   } else if (!isloading && Images.length === 0) {
     content = (
-      <div className="w-full h-[100vh] flex items-center justify-center bg-[#f8f7f7]">
+      <div className="w-full h-[100vh] flex items-center justify-center bg-[#FFFFFF]">
         <h1 className="text-6xl text-black">No Results!</h1>
       </div>
     );
   } else if (!isloading && isError) {
-    content = <h1 className="text-6xl text-white">No Results!</h1>;
+    content = <h1 className="text-6xl text-black">No Results!</h1>;
   }
 
   const onTagClickHandler = (tagValue) => {
@@ -69,9 +70,9 @@ const Home = () => {
         </div>
       )}
 
-      <div className="mt-4">
-        <div className="Container w-full h-80 flex items-center flex-col gap-28 justify-center ">
-          <h1 className="text-center text-6xl font-serif text-white ">
+      <div>
+        <div className="Container w-full h-80 flex items-center flex-col gap-8 justify-center bg-[#FFFFFF] ">
+          <h1 className="text-center text-6xl font-serif text-black">
             Search For Images
           </h1>
           {/* <Search handleSearch={handleSearch_function} /> */}

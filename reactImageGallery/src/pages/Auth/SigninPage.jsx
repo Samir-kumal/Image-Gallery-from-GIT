@@ -39,11 +39,11 @@ const SigninPage = ({ handleShow }) => {
   });
 
   return (
-    <div className="fixed rounded-2xl h-[85%] w-[60%] z-50 ">
-      <div className="relative flex  h-full w-full flex-col-reverse xl:flex-row lg:flex-row md:flex-row flex items-center justify-center">
+    <div className="fixed rounded-2xl h-[85%] w-[60%] z-50 flex justify-items-center">
+      <div className="relative flex  h-full w-full flex-col-reverse xl:flex-row lg:flex-row md:flex-row ">
         <button
           onClick={() => handleShow(false)}
-          className="bg-white z-[70] w-8 h-8 absolute top-0 left-0  font-bold text-2xl rounded-xl"
+          className="bg-white rounded-xl z-[60] w-8 h-8 absolute top-0 left-0 flex items-center justify-center font-bold text-2xl "
         >
           X
         </button>
