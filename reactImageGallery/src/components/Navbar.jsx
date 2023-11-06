@@ -27,7 +27,7 @@ const Navbar = (props) => {
   let menuRefSub = useRef();
 
   const handleLogout = () => {
-    window.location.href = "/"
+    window.location.href = "/";
     localStorage.clear();
     alert("logged out successfully");
     setUserData(null);
@@ -84,10 +84,10 @@ const Navbar = (props) => {
   if (location.pathname === "/") {
     return (
       <nav
-        className="w-full h-24 bg-[#151313] relative flex items-center justify-between px-2"
+        className="w-full h-24 bg-[#ffffff] relative flex items-center justify-between px-2 border-b-2"
         ref={menuRef}
       >
-        <div className="logo">
+        <div className="logo p-8">
           <NavLink to={"/"}>
             {" "}
             <img src={logo} alt="" height={img.height} width={img.width} />
@@ -96,8 +96,8 @@ const Navbar = (props) => {
         {}
 
         {isOpen && (
-          <div className={`menuItems  p-2  w-max ${isOpen ? "open" : ""}`}>
-            <ul className=" gap-12 lg:flex md:inline lg:static text-white ">
+          <div className={`menuItems w-max ${isOpen ? "open" : ""}`}>
+            <ul className=" gap-12 lg:flex md:inline lg:static text-black bg-[#ffffff]">
               <li ref={menuRefSub}>
                 <NavLink to={"/"}>HOME</NavLink>
               </li>
@@ -116,6 +116,7 @@ const Navbar = (props) => {
             </ul>
           </div>
         )}
+
         {userData ? (
           <div className="flex-col  w-32 relative items-center justify-center">
             <div className=" flex items-center justify-center mb-4">
@@ -123,12 +124,16 @@ const Navbar = (props) => {
                 onClick={() => setIsProfileMenuOpen((prev) => !prev)}
                 className="lg:flex xl:flex hidden h-12 w-12 mr-4  items-center justify-center bg-white rounded-full"
               >
-                <img className="rounded-full h-full w-full" src={userData.picture} alt=""  />
+                <img
+                  className="rounded-full h-full w-full"
+                  src={userData.picture}
+                  alt=""
+                />
               </button>
             </div>
             {isProfileMenuOpen && (
               <div className="border-[1px] absolute right-1">
-                <ul className="text-white p-2">
+                <ul className="text-black p-2 bg-white">
                   <li>Welcome,{userData.fname || userData.name}</li>
                   <li>profile</li>
                   <li>settings</li>
@@ -143,9 +148,9 @@ const Navbar = (props) => {
         ) : (
           <button
             onClick={() => handleShow(true)}
-            className="text-white border-[0.5px] p-[12px] w-28 hidden lg:block xl:block border-white"
+            className="text-black border-[0.5px] p-[9px] w-24 hidden lg:block xl:block border-none bg-[#DBF0F0] "
           >
-            login
+            Login
             <FontAwesomeIcon
               icon="far fa-arrow-alt-circle-right"
               color="white"
@@ -169,7 +174,7 @@ const Navbar = (props) => {
               y1="1.5"
               x2="40"
               y2="1.5"
-              stroke="white"
+              stroke="black"
               strokeWidth="3"
             />
             <line
@@ -177,7 +182,7 @@ const Navbar = (props) => {
               y1="31.5"
               x2="40"
               y2="31.5"
-              stroke="white"
+              stroke="black"
               strokeWidth="3"
             />
             <line
@@ -185,7 +190,7 @@ const Navbar = (props) => {
               y1="16.5206"
               x2="40"
               y2="16.5"
-              stroke="white"
+              stroke="black"
               strokeWidth="3"
             />
           </svg>
@@ -195,7 +200,7 @@ const Navbar = (props) => {
   }
   return (
     <nav
-      className="w-full h-24 bg-[#151313] relative flex items-center justify-between px-2"
+      className="w-full h-24 bg-[#f4f1f1] relative flex items-center  justify-between px-2"
       ref={menuRef}
     >
       <div className="logo">
@@ -208,11 +213,7 @@ const Navbar = (props) => {
 
       <Search handleSearch={handleSearch_function} />
       {isOpen && (
-        <div
-          className={`menuItems  p-2 z-20 opacity-80  w-max ${
-            isOpen ? "open" : ""
-          }`}
-        >
+        <div className={`menuItems w-max ${isOpen ? "open" : ""}`}>
           <ul className=" gap-12 lg:flex z-20  md:inline lg:static text-white ">
             <li ref={menuRefSub}>
               <NavLink to={"/"}>HOME</NavLink>
