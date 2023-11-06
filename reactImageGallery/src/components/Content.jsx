@@ -6,7 +6,7 @@ import { Alert, ImageListItem } from "@mui/material";
 const content = (props) => {
   const [imgContent, setImgContent] = useState({
     url: "",
-    name:""
+    name: "",
   });
   const [menuState, setMenuState] = useState(false);
   const [tagArray, setTagArray] = useState([]);
@@ -29,28 +29,27 @@ const content = (props) => {
     console.log(tagArray);
   };
 
-
-// handles the opening of the model through click event
-  const handleMouseClick = (urls,title, tags) => {
+  // handles the opening of the model through click event
+  const handleMouseClick = (urls, title, tags) => {
     setMenuState(true);
     console.log(urls);
     tagContent(tags);
     setImgContent({
       url: urls,
-      name:title
+      name: title,
     });
   };
 
   // handles the download of the image
-  const handleDownloadClick = async (value) =>{
+  const handleDownloadClick = async (value) => {
     const response = await fetch(value.url);
     const blob = await response.blob();
-    const url  = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
     a.href = url;
-    a.download = value.name
+    a.download = value.name;
     a.click();
-  }
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -70,14 +69,13 @@ const content = (props) => {
     handleResize();
 
     // Attach the event listener to update the state on window resize
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     // Clean up the event listener on component unmount
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
-
 
   return (
     <>
@@ -87,9 +85,16 @@ const content = (props) => {
             X
           </button>
           <div className="w-full flex xl:flex-row lg:flex-row flex-col justify-center h-fit ">
-            <img className="p-2" src={imgContent.url} alt="" height={500} width={500} />
+            <img
+              className="p-2"
+              src={imgContent.url}
+              alt=""
+              height={500}
+              width={500}
+            />
             <div className="w-full h-20  flex justify-center ">
-              <button onClick={()=>handleDownloadClick(imgContent)}
+              <button
+                onClick={() => handleDownloadClick(imgContent)}
                 className=" flex justify-center items-center
      px-4 rounded-xl py-2 w-[80%] h-[4rem]
       bg-green-400 text-white"
@@ -111,7 +116,7 @@ const content = (props) => {
         </div>
       )}
 
-      <div className="container m-auto  place-content-center mt-10 ">
+      <div className="container m-auto  place-content-center  bg-white">
         <ImageList
           sx={{ width: "100%", height: "100%" }}
           variant="quilted"
@@ -120,14 +125,19 @@ const content = (props) => {
           gap={28}
         >
           {props.Images.map((image) => (
-            
             <ImageListItem
               key={image.id}
               cols={image.height / image.width > 1.5 ? 1 : 1}
               rows={image.height / image.width > 1.5 ? 2 : 1}
             >
               <img
-                onClick={() => handleMouseClick(image.urls.regular,image.alt_description, image.tags)}
+                onClick={() =>
+                  handleMouseClick(
+                    image.urls.regular,
+                    image.alt_description,
+                    image.tags
+                  )
+                }
                 className="rounded-md hover:scale-100"
                 src={image.urls.small}
                 alt={image.title}

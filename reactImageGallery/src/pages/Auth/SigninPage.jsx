@@ -37,20 +37,18 @@ const SigninPage = ({ handleShow }) => {
       });
     },
   });
- 
 
- 
   return (
-    <div className="fixed rounded-2xl h-full w-[90%]  z-50">
-      <div className="relative flex  h-full w-full flex-col-reverse xl:flex-row lg:flex-row md:flex-row">
+    <div className="fixed rounded-2xl h-[85%] w-[60%] z-50 flex justify-items-center">
+      <div className="relative flex  h-full w-full flex-col-reverse xl:flex-row lg:flex-row md:flex-row ">
         <button
           onClick={() => handleShow(false)}
-          className="bg-white rounded-sm z-[60] w-8 h-8 absolute top-0 left-0 flex items-center justify-center font-bold text-2xl"
+          className="bg-white rounded-xl z-[60] w-8 h-8 absolute top-0 left-0 flex items-center justify-center font-bold text-2xl "
         >
           X
         </button>
-        <div className="h-full lg:w-1/2 md:w-1/2 xl:w-1/2 w-full bg-black">
-          <div className="mx-auto flex h-full w-2/3 flex-col justify-center text-white xl:w-1/2">
+        <div className="h-full lg:w-1/2 md:w-1/2 xl:w-1/2 w-full bg-white rounded-xl">
+          <div className="mx-auto flex h-full w-2/3 flex-col justify-center text-black xl:w-1/2">
             <div className=" ">
               <p className="text-2xl">Login|</p>
               <p>please login to continue|</p>
@@ -161,12 +159,6 @@ const SigninPage = ({ handleShow }) => {
               </form>
             </div>
           </div>
-        </div>
-        <div className="h-full w-1/2 bg-blue-600 hidden xl:block lg:block md:block">
-          <img
-            src="https://images.pexels.com/photos/2523959/pexels-photo-2523959.jpeg"
-            className="h-full w-full"
-          />
         </div>
       </div>
     </div>
