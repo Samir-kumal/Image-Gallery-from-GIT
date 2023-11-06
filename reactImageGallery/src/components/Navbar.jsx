@@ -84,7 +84,7 @@ const Navbar = (props) => {
   if (location.pathname === "/") {
     return (
       <nav
-        className="w-full h-24 bg-[#f9f8f8] relative flex items-center justify-between px-2 "
+        className="w-full h-24 bg-[#ffffff] relative flex items-center justify-between px-2 border-b-2"
         ref={menuRef}
       >
         <div className="logo p-8">
@@ -96,8 +96,8 @@ const Navbar = (props) => {
         {}
 
         {isOpen && (
-          <div className={`menuItems  p-0  w-max ${isOpen ? "open" : ""}`}>
-            <ul className=" gap-12 lg:flex md:inline lg:static text-black bg-[#f9f8f8]">
+          <div className={`menuItems w-max ${isOpen ? "open" : ""}`}>
+            <ul className=" gap-12 lg:flex md:inline lg:static text-black bg-[#ffffff]">
               <li ref={menuRefSub}>
                 <NavLink to={"/"}>HOME</NavLink>
               </li>
@@ -213,7 +213,7 @@ const Navbar = (props) => {
 
       <Search handleSearch={handleSearch_function} />
       {isOpen && (
-        <div className={`menuItems  p-0  w-max ${isOpen ? "open" : ""}`}>
+        <div className={`menuItems w-max ${isOpen ? "open" : ""}`}>
           <ul className=" gap-12 lg:flex z-20  md:inline lg:static text-white ">
             <li ref={menuRefSub}>
               <NavLink to={"/"}>HOME</NavLink>
