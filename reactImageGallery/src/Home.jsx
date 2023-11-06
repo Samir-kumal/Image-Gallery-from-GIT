@@ -71,8 +71,8 @@ const Home = () => {
       )}
 
       <div>
-        <div className="Container w-full h-80 flex items-center flex-col gap-8 justify-center bg-[#FFFFFF] ">
-          <h1 className="text-center text-6xl font-serif text-black">
+        <div className="Container w-full h-80 flex items-center flex-col gap-8 justify-center bg-white">
+          <h1 className="text-center 2xl:text-6xl xl:text-6xl lg:text-6xl md:text-4xl text-3xl font-serif text-black">
             Search For Images
           </h1>
           {/* <Search handleSearch={handleSearch_function} /> */}

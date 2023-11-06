@@ -116,7 +116,7 @@ const content = (props) => {
         </div>
       )}
 
-      <div className="container m-auto  place-content-center  bg-white">
+      <div className="container m-auto w-[90vw]   place-content-center  bg-white">
         <ImageList
           sx={{ width: "100%", height: "100%" }}
           variant="quilted"

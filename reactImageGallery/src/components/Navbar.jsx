@@ -97,8 +97,8 @@ const Navbar = (props) => {
 
         {isOpen && (
           <div className={`menuItems w-max ${isOpen ? "open" : ""}`}>
-            <ul className=" gap-12 lg:flex md:inline lg:static text-black bg-[#ffffff]">
-              <li ref={menuRefSub}>
+            <ul className=" gap-12 lg:flex md:inline lg:static text-black  bg-white p-2 px-4 w-full">
+              <li ref={menuRefSub} className="hover:opacity-50">
                 <NavLink to={"/"}>HOME</NavLink>
               </li>
               <li>
@@ -113,24 +113,28 @@ const Navbar = (props) => {
               <li>
                 <NavLink to={"/Contacts"}>CONTACTS</NavLink>
               </li>
+              <li></li>
             </ul>
           </div>
         )}
 
         {userData ? (
-          <div className="flex-col  w-32 relative items-center justify-center">
-            <div className=" flex items-center justify-center mb-4">
-              <button
-                onClick={() => setIsProfileMenuOpen((prev) => !prev)}
-                className="lg:flex xl:flex hidden h-12 w-12 mr-4  items-center justify-center bg-white rounded-full"
-              >
-                <img
-                  className="rounded-full h-full w-full"
-                  src={userData.picture}
-                  alt=""
-                />
-              </button>
-            </div>
+          <div className="flex-col  w-fit 2xl:static xl:static lg:static absolute right-16   items-center justify-center">
+            {/* <div className=" flex items-center  justify-center mb-4"> */}
+            <button
+              onClick={() => {
+                setIsProfileMenuOpen((prev) => !prev);
+                setIsOpen(false);
+              }}
+              className="lg:flex xl:flex  h-12 w-12    items-center justify-center bg-white rounded-full"
+            >
+              <img
+                className="rounded-full h-full w-full"
+                src={userData.picture}
+                alt=""
+              />
+            </button>
+            {/* </div> */}
             {isProfileMenuOpen && (
               <div className="border-[1px] absolute right-1">
                 <ul className="text-black p-2 bg-white">
@@ -148,7 +152,7 @@ const Navbar = (props) => {
         ) : (
           <button
             onClick={() => handleShow(true)}
-            className="text-black border-[0.5px] p-[9px] w-24 hidden lg:block xl:block border-none bg-[#DBF0F0] "
+            className="text-black border-[0.5px] p-[9px] w-24 absolute right-16 lg:block xl:block border-none bg-[#DBF0F0] "
           >
             Login
             <FontAwesomeIcon
@@ -158,8 +162,12 @@ const Navbar = (props) => {
             />
           </button>
         )}
+
         <button
-          onClick={() => setIsOpen((prev) => !prev)}
+          onClick={() => {
+            setIsOpen((prev) => !prev);
+            setIsProfileMenuOpen(false)
+          }}
           className="menuButton block lg:hidden xl:hidden 2xl:hidden"
         >
           <svg
@@ -213,8 +221,8 @@ const Navbar = (props) => {
 
       <Search handleSearch={handleSearch_function} />
       {isOpen && (
-        <div className={`menuItems w-max ${isOpen ? "open" : ""}`}>
-          <ul className=" gap-12 lg:flex z-20  md:inline lg:static text-white ">
+        <div className={`menuItems  ${isOpen ? "open" : ""}`}>
+          <ul className=" gap-12 lg:flex z-20 w-full bg-slate-300  md:inline lg:static text-white ">
             <li ref={menuRefSub}>
               <NavLink to={"/"}>HOME</NavLink>
             </li>
@@ -227,9 +235,9 @@ const Navbar = (props) => {
             <li>
               <NavLink to={"/Explore"}>EXPLORE</NavLink>
             </li>
-            <li>
+            {/* <li>
               <NavLink to={"/Contacts"}>CONTACTS</NavLink>
-            </li>
+            </li> */}
           </ul>
         </div>
       )}
