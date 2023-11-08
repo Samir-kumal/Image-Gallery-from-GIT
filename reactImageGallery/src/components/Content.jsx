@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import TagButton from "./TagButton";
 import ImageList from "@mui/material/ImageList";
 import { Alert, ImageListItem } from "@mui/material";
+import { useDataProvider } from "../context/DataProvider";
 
 const content = (props) => {
   const [imgContent, setImgContent] = useState({
@@ -12,13 +13,8 @@ const content = (props) => {
   const [tagArray, setTagArray] = useState([]);
   const [windowWidth, setWindowWidth] = useState(0);
   const [columnCount, setColumnCount] = useState(1);
-  // const handleMessage = (data) => {
-  //   setMenuState(data);
-  // };
+  const {fetchNextPage} = useDataProvider();
 
-  // const imageContent = (img) => {
-  //   setImgContent(img);
-  // };
   const ontagClickHandler = (tagValue) => {
     props.tagValueHandler(tagValue);
     setMenuState(false);
@@ -77,6 +73,8 @@ const content = (props) => {
     };
   }, []);
 
+
+
   return (
     <>
       {menuState && (
@@ -116,7 +114,7 @@ const content = (props) => {
         </div>
       )}
 
-      <div className="container m-auto w-[90vw]   place-content-center  bg-white">
+      <div className="container m-auto w-[90vw] flex items-center justify-center flex-col  place-content-center  bg-white">
         <ImageList
           sx={{ width: "100%", height: "100%" }}
           variant="quilted"
@@ -146,6 +144,7 @@ const content = (props) => {
             </ImageListItem>
           ))}
         </ImageList>
+        <button onClick={fetchNextPage} className = "shadow-lg p-4 bg-slate-300 m-auto text-2xl my-8">Load more Images</button>
       </div>
     </>
   );

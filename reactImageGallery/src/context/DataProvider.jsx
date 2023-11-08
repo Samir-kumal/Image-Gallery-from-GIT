@@ -17,44 +17,78 @@ const DataProvider = ({ children }) => {
     isloading: false,
     isError: null,
   });
+  const [page, setPage] = useState(1);
   const { Images, search, isloading, isError } = state;
+
   const FetchApi = async () => {
+
     setState((prevState) => ({ ...prevState, isloading: true, isError: null }));
     try {
-      const Response = await SearchService.Search(search);
+      const Response = await SearchService.Search(search, page);
       if (!Response.ok) {
         throw new Error("Something Went wrong");
       }
       const data = await Response.json();
-      setState((prevState) => ({ ...prevState, Images: data.results }));
+      setState((prevState) => ({
+        ...prevState,
+        Images: [...prevState.Images, ...data.results],
+      }));
+
+      console.log(page);
     } catch (error) {
       setState((prevState) => ({ ...prevState, isError: error.message }));
+    } finally {
+      setState((prevState) => ({ ...prevState, isloading: false }));
+    
     }
-    setState((prevState) => ({ ...prevState, isloading: false }));
   };
 
   useEffect(() => {
     FetchApi();
-  }, [search]);
+  }, [search, page]);
 
-  //   const contextValue = useMemo(() => {
-  //     return {
-  //       Images,
-  //       setImages,
-  //       search,
-  //       setSearch,
-  //       isloading,
-  //       setIsLoading,
-  //       isError, // Include isError in the context value
-  //     };
-  //   }, [Images, setImages, search, setSearch, isloading, setIsLoading, isError]);
+  const fetchNextPage = () => {
+   
+
+    console.log(page);
+  };
+
+  const handleInfiniteScroll = async () => {
+    const windowHeight = window.innerHeight;
+    const scrollPosition = document.documentElement.scrollTop;
+    const documentHeight = document.documentElement.scrollHeight;
+    try {
+      if (windowHeight + scrollPosition + 1500 >= documentHeight) {
+        setState((prev) => ({
+          ...prev,
+          isloading: true,
+        }));
+        setPage((prevPage) => prevPage + 1);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleInfiniteScroll);
+    return () => window.removeEventListener("scroll", handleInfiniteScroll);
+  }, []);
 
   return (
-    // <DataContext.Provider value={contextValue}>{children}</DataContext.Provider>
     <DataContext.Provider
       value={{
         ...state,
-        setSearch: (newSearch) => setState({ ...state, search: newSearch }),
+        setSearch: (newSearch) => {
+          // Reset page and clear existing Images when the search term changes
+          setState({
+            Images: [],
+            search: newSearch,
+            isloading: false,
+            isError: null,
+          });
+        },
+        fetchNextPage,
       }}
     >
       {children}

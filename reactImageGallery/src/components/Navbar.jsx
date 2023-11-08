@@ -25,6 +25,7 @@ const Navbar = (props) => {
 
   let menuRef = useRef();
   let menuRefSub = useRef();
+  let profileRef = useRef();
 
   const handleLogout = () => {
     window.location.href = "/";
@@ -50,6 +51,13 @@ const Navbar = (props) => {
       ) {
         setIsOpenSub(false);
       }
+      if (
+        profileRef.current &&
+        !profileRef.current.contains(e.target)
+      ) {
+        setIsProfileMenuOpen(false);
+      }
+      
     };
     document.addEventListener("mousedown", handler);
 
@@ -119,12 +127,15 @@ const Navbar = (props) => {
         )}
 
         {userData ? (
-          <div className="flex-col  w-fit 2xl:static xl:static lg:static absolute right-16   items-center justify-center">
+          <div  className="flex-col  w-fit 2xl:static xl:static lg:static absolute right-16   items-center justify-center">
             {/* <div className=" flex items-center  justify-center mb-4"> */}
-            <button
+            <button ref={profileRef}
               onClick={() => {
                 setIsProfileMenuOpen((prev) => !prev);
-                setIsOpen(false);
+                if (window.innerWidth < 1021) {
+                  setIsOpen(false);
+
+                }
               }}
               className="lg:flex xl:flex  h-12 w-12    items-center justify-center bg-white rounded-full"
             >

@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, memo } from "react";
 
 const Search = (props) => {
   const [searchInput, setSearchInput] = useState("");
@@ -58,4 +58,4 @@ const Search = (props) => {
   );
 };
 
-export default Search;
+export default memo(Search);

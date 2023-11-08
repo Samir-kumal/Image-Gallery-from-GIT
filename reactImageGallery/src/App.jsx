@@ -18,6 +18,8 @@ function App() {
       setIsLoading(false);
     }, 2000);
   });
+
+
   return (
     <BrowserRouter>
       {isLoading ? (
@@ -25,7 +27,7 @@ function App() {
           <div role="status">
             <svg
               aria-hidden="true"
-              class="inline w-10 h-10 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-[#46B9B9]"
+              className="inline w-10 h-10 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-[#46B9B9]"
               viewBox="0 0 100 101"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -39,7 +41,7 @@ function App() {
                 fill="currentFill"
               />
             </svg>
-            <span class="sr-only">Loading...</span>
+            <span className="sr-only">Loading...</span>
           </div>
         </div>
       ) : (
