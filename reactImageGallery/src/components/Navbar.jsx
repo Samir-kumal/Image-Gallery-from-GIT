@@ -152,7 +152,7 @@ const Navbar = (props) => {
         ) : (
           <button
             onClick={() => handleShow(true)}
-            className="text-black border-[0.5px] p-[9px] w-24 absolute right-16 lg:block xl:block border-none bg-[#DBF0F0] "
+            className="text-black border-[0.5px] p-[9px] w-24  right-16 lg:static xl:static absolute border-none bg-[#DBF0F0] "
           >
             Login
             <FontAwesomeIcon
