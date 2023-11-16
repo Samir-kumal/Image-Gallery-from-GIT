@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 import Search from "./Search";
 import { useLocation } from "react-router-dom";
 import { useDataProvider } from "../context/DataProvider";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAuth } from "../context/AuthProvider";
 
 const Navbar = (props) => {
@@ -166,11 +166,7 @@ const Navbar = (props) => {
             className="text-black border-[0.5px] p-[9px] w-24  right-16 lg:static xl:static absolute border-none bg-[#DBF0F0] "
           >
             Login
-            <FontAwesomeIcon
-              icon="far fa-arrow-alt-circle-right"
-              color="white"
-              size="30"
-            />
+        
           </button>
         )}
 
