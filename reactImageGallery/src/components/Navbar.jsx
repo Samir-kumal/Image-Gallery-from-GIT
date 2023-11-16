@@ -147,14 +147,14 @@ const Navbar = (props) => {
             </button>
             {/* </div> */}
             {isProfileMenuOpen && (
-              <div className="border-[1px] absolute right-1">
+              <div ref={profileRef} className="border-[1px] absolute right-1">
                 <ul className="text-black p-2 bg-white">
                   <li>Welcome,{userData.fname || userData.name}</li>
                   <li>profile</li>
-                  <li>settings</li>
+                  <li >settings</li>
                   <li>
                     {" "}
-                    <button onClick={handleLogout}>logout</button>
+                    <button className = "border-2 px-6" onClick={handleLogout}>logout</button>
                   </li>
                 </ul>
               </div>
@@ -242,9 +242,7 @@ const Navbar = (props) => {
             <li>
               <NavLink to={"/Explore"}>EXPLORE</NavLink>
             </li>
-            {/* <li>
-              <NavLink to={"/Contacts"}>CONTACTS</NavLink>
-            </li> */}
+        
           </ul>
         </div>
       )}
