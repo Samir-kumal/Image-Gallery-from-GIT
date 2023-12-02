@@ -3,6 +3,7 @@ import TagButton from "./TagButton";
 import ImageList from "@mui/material/ImageList";
 import { Alert, ImageListItem } from "@mui/material";
 import { useDataProvider } from "../context/DataProvider";
+import LoadingSpinnerSmall from "./common/LoadingSpinnerSmall";
 
 const content = (props) => {
   const [imgContent, setImgContent] = useState({
@@ -13,7 +14,7 @@ const content = (props) => {
   const [tagArray, setTagArray] = useState([]);
   const [windowWidth, setWindowWidth] = useState(0);
   const [columnCount, setColumnCount] = useState(1);
-  const {fetchNextPage} = useDataProvider();
+  const { isContentLoading} = useDataProvider();
 
   const ontagClickHandler = (tagValue) => {
     props.tagValueHandler(tagValue);
@@ -144,7 +145,9 @@ const content = (props) => {
             </ImageListItem>
           ))}
         </ImageList>
-        <button onClick={fetchNextPage} className = "shadow-lg p-4 bg-slate-300 m-auto text-2xl my-8">Load more Images</button>
+        {/* <button onClick={fetchNextPage} className = "shadow-lg p-4 bg-slate-300 m-auto text-2xl my-8">Load more Images</button> */}
+        {isContentLoading && <LoadingSpinnerSmall/>}
+
       </div>
     </>
   );

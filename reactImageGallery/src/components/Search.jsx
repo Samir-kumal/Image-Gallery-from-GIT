@@ -1,8 +1,10 @@
 import React from "react";
 import { useState, memo } from "react";
+import { useDataProvider } from "../context/DataProvider";
 
 const Search = (props) => {
   const [searchInput, setSearchInput] = useState("");
+  const {handleSearch} = useDataProvider();
 
   const handleInputChange = (e) => {
     setSearchInput(e.target.value);
@@ -10,7 +12,7 @@ const Search = (props) => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (searchInput.length > 0) {
-      props.handleSearch(searchInput);
+      handleSearch(searchInput);
     } else {
     }
     console.log(searchInput);

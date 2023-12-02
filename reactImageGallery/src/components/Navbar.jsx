@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 import Search from "./Search";
 import { useLocation } from "react-router-dom";
 import { useDataProvider } from "../context/DataProvider";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAuth } from "../context/AuthProvider";
 
 const Navbar = (props) => {
@@ -147,14 +147,14 @@ const Navbar = (props) => {
             </button>
             {/* </div> */}
             {isProfileMenuOpen && (
-              <div className="border-[1px] absolute right-1">
+              <div ref={profileRef} className="border-[1px] absolute right-1">
                 <ul className="text-black p-2 bg-white">
                   <li>Welcome,{userData.fname || userData.name}</li>
                   <li>profile</li>
-                  <li>settings</li>
+                  <li >settings</li>
                   <li>
                     {" "}
-                    <button onClick={handleLogout}>logout</button>
+                    <button className = "border-2 px-6" onClick={handleLogout}>logout</button>
                   </li>
                 </ul>
               </div>
@@ -166,11 +166,7 @@ const Navbar = (props) => {
             className="text-black border-[0.5px] p-[9px] w-24  right-16 lg:static xl:static absolute border-none bg-[#DBF0F0] "
           >
             Login
-            <FontAwesomeIcon
-              icon="far fa-arrow-alt-circle-right"
-              color="white"
-              size="30"
-            />
+        
           </button>
         )}
 
@@ -246,9 +242,7 @@ const Navbar = (props) => {
             <li>
               <NavLink to={"/Explore"}>EXPLORE</NavLink>
             </li>
-            {/* <li>
-              <NavLink to={"/Contacts"}>CONTACTS</NavLink>
-            </li> */}
+        
           </ul>
         </div>
       )}

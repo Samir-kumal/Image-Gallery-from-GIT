@@ -3,6 +3,7 @@ import React, {
   useState,
   useContext,
   createContext,
+  useCallback,
   useMemo,
 } from "react";
 import SearchService from "../services/SearchService";
@@ -17,80 +18,96 @@ const DataProvider = ({ children }) => {
     isloading: false,
     isError: null,
   });
+  const [Images, setImages] = useState([]);
+  const [search, setSearch] = useState("Random");
+  const [isloading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(null);
   const [page, setPage] = useState(1);
-  const { Images, search, isloading, isError } = state;
+  const [isContentLoading, setContentLoading] = useState(false);
+  const [isInitialRender, setInitialRender] =useState(true);
 
   const FetchApi = async () => {
-
-    setState((prevState) => ({ ...prevState, isloading: true, isError: null }));
     try {
       const Response = await SearchService.Search(search, page);
       if (!Response.ok) {
         throw new Error("Something Went wrong");
       }
       const data = await Response.json();
-      setState((prevState) => ({
-        ...prevState,
-        Images: [...prevState.Images, ...data.results],
-      }));
-
-      console.log(page);
+      setImages((prev) => [...prev, ...data.results]);
     } catch (error) {
-      setState((prevState) => ({ ...prevState, isError: error.message }));
+      setIsError(true);
+      console.log("error");
     } finally {
-      setState((prevState) => ({ ...prevState, isloading: false }));
-    
+      if (isloading) {
+        setIsLoading(false);
+      }
+      setContentLoading(false);
+      setInitialRender(false);
     }
   };
 
-  useEffect(() => {
+  const handleSearch = (value) => {
+    setSearch(value);
     FetchApi();
-  }, [search, page]);
-
-  const fetchNextPage = () => {
-   
-
-    console.log(page);
   };
 
-  const handleInfiniteScroll = async () => {
+  useEffect(() => {
+    setIsLoading(true);
+    setIsError(false);
+  }, [search]);
+
+  useEffect(() => {
+    // Only fetch if it's not the initial render
+    if (isInitialRender) {
+      FetchApi();
+    }
+  }, [isInitialRender, FetchApi]);
+
+  useEffect(() => {
+    FetchApi(); // This will still fetch on the initial render
+  }, [page, isInitialRender]);
+
+  console.log("rendered");
+
+  const handleInfiniteScroll = useCallback(async () => {
     const windowHeight = window.innerHeight;
     const scrollPosition = document.documentElement.scrollTop;
     const documentHeight = document.documentElement.scrollHeight;
     try {
       if (windowHeight + scrollPosition + 1500 >= documentHeight) {
-        setState((prev) => ({
-          ...prev,
-          isloading: true,
-        }));
+        setContentLoading(true);
         setPage((prevPage) => prevPage + 1);
+
+        await FetchApi();
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
-  };
+  }, [setPage, setContentLoading, FetchApi]);
 
   useEffect(() => {
-    window.addEventListener("scroll", handleInfiniteScroll);
-    return () => window.removeEventListener("scroll", handleInfiniteScroll);
-  }, []);
+    const onScroll = () => handleInfiniteScroll();
+
+    window.addEventListener("scroll", onScroll);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [handleInfiniteScroll]);
+
+  const memoisedValues = useMemo(
+    () => ({
+      Images,
+      search,
+      handleSearch,
+      isloading,
+      isContentLoading,
+    }),
+    [search, page, Images, isloading, isContentLoading]
+  );
 
   return (
-    <DataContext.Provider
-      value={{
-        ...state,
-        setSearch: (newSearch) => {
-          // Reset page and clear existing Images when the search term changes
-          setState({
-            Images: [],
-            search: newSearch,
-            isloading: false,
-            isError: null,
-          });
-        },
-        fetchNextPage,
-      }}
-    >
+    <DataContext.Provider value={memoisedValues}>
       {children}
     </DataContext.Provider>
   );
