@@ -11,31 +11,32 @@ import { LoadingSpinner } from "./components/common/LoadingSpinner";
 const Home = () => {
   // const [searchInput, setSearchInput] = useState('')
   const [isError, setIsError] = useState();
-  const { Images, search, isloading } =
+  const { data, search, isLoading, handleSearch } =
     useDataProvider();
   const { userData } = useAuth();
   const [loading, setLoading] = useState(true);
 
   let content = null;
-  if (isloading) {
+  if (isLoading) {
     content = (
      <LoadingSpinner/>
     );
-  } else if (!isloading && Images.length === 0) {
+  } else if (!isLoading && data?.pages.length === 0) {
     content = (
       <div className="w-full h-[100vh] flex items-center justify-center bg-[#FFFFFF]">
         <h1 className="text-6xl text-black">No Results!</h1>
       </div>
     );
-  } else if (!isloading && isError) {
+  } else if (!isLoading && isError) {
     content = <h1 className="text-6xl text-black">No Results!</h1>;
   }
 
   const onTagClickHandler = (tagValue) => {
-    setSearch(tagValue);
+    handleSearch(tagValue);
   };
   const [show, setShow] = useState(false);
 
+  console.log("home page rendered", data?.pages[0].length, isLoading)
   return (
     <>
       <Navbar handleShow={setShow} userData={userData} />
@@ -51,12 +52,12 @@ const Home = () => {
             Search For Images
           </h1>
           {/* <Search handleSearch={handleSearch_function} /> */}
-          <Search  />
+          <Search   />
         </div>
       </div>
       {content}
-      {!isloading && Images.length > 0 && (
-        <Content Images={Images} tagValueHandler={onTagClickHandler} />
+      {!isLoading && data?.pages[0].length > 0 && (
+        <Content data={data} tagValueHandler={onTagClickHandler} />
       )}
     </>
   );

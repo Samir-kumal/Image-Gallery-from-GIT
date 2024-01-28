@@ -5,7 +5,7 @@ import { Alert, ImageListItem } from "@mui/material";
 import { useDataProvider } from "../context/DataProvider";
 import LoadingSpinnerSmall from "./common/LoadingSpinnerSmall";
 
-const content = (props) => {
+const content = ({ data, tagValueHandler }) => {
   const [imgContent, setImgContent] = useState({
     url: "",
     name: "",
@@ -14,10 +14,10 @@ const content = (props) => {
   const [tagArray, setTagArray] = useState([]);
   const [windowWidth, setWindowWidth] = useState(0);
   const [columnCount, setColumnCount] = useState(1);
-  const { isContentLoading} = useDataProvider();
+  const { isContentLoading } = useDataProvider();
 
   const ontagClickHandler = (tagValue) => {
-    props.tagValueHandler(tagValue);
+    tagValueHandler(tagValue);
     setMenuState(false);
   };
 
@@ -74,22 +74,23 @@ const content = (props) => {
     };
   }, []);
 
-
-
+  console.log("content page rendered")
   return (
     <>
       {menuState && (
-        <div className="fixed m-auto overflow-auto  rounded p-2 px-6 left-0 top-2/4 bottom-1/2 right-0 w-[80%] h-[90%] bg-white z-[999]">
-          <button className="p-2" onClick={() => setMenuState(false)}>
+       <div className="bg-black/60 inset-0 fixed z-10 backdrop-blur-sm	">
+        <button className="p-2 h-12 translate-x-28 mt-8 w-12 bg-white rounded-full" onClick={() => setMenuState(false)}>
             X
           </button>
+         <div className="fixed m-auto overflow-auto  rounded p-2 px-6 left-0 top-2/4 bottom-1/2 right-0 w-[70%] h-[80%] bg-white z-[999]">
+          
           <div className="w-full flex xl:flex-row lg:flex-row flex-col justify-center h-fit ">
             <img
               className="p-2"
               src={imgContent.url}
               alt=""
-              height={500}
-              width={500}
+              height={300}
+              width={300}
             />
             <div className="w-full h-20  flex justify-center ">
               <button
@@ -113,6 +114,7 @@ const content = (props) => {
             </div>
           </div>
         </div>
+       </div>
       )}
 
       <div className="container m-auto w-[90vw] flex items-center justify-center flex-col  place-content-center  bg-white">
@@ -123,31 +125,32 @@ const content = (props) => {
           rowHeight={300}
           gap={28}
         >
-          {props.Images.map((image) => (
-            <ImageListItem
-              key={image.id}
-              cols={image.height / image.width > 1.5 ? 1 : 1}
-              rows={image.height / image.width > 1.5 ? 2 : 1}
-            >
-              <img
-                onClick={() =>
-                  handleMouseClick(
-                    image.urls.regular,
-                    image.alt_description,
-                    image.tags
-                  )
-                }
-                className="rounded-md hover:scale-100"
-                src={image.urls.small}
-                alt={image.title}
-                loading="lazy"
-              />
-            </ImageListItem>
-          ))}
+          {data?.pages.map((page) =>
+            page.map((image) => (
+              <ImageListItem
+                key={image.id}
+                cols={image.height / image.width > 1.5 ? 1 : 1}
+                rows={image.height / image.width > 1.5 ? 2 : 1}
+              >
+                <img
+                  onClick={() =>
+                    handleMouseClick(
+                      image.urls.regular,
+                      image.alt_description,
+                      image.tags
+                    )
+                  }
+                  className="rounded-md hover:scale-100"
+                  src={image.urls.small}
+                  alt={image.title}
+                  loading="lazy"
+                />
+              </ImageListItem>
+            ))
+          )}
         </ImageList>
         {/* <button onClick={fetchNextPage} className = "shadow-lg p-4 bg-slate-300 m-auto text-2xl my-8">Load more Images</button> */}
-        {isContentLoading && <LoadingSpinnerSmall/>}
-
+        {isContentLoading && <LoadingSpinnerSmall />}
       </div>
     </>
   );

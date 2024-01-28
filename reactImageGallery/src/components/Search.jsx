@@ -14,21 +14,15 @@ const Search = (props) => {
     if (searchInput.length > 0) {
       handleSearch(searchInput);
     } else {
+    alert("Please enter a search term");
+
     }
-    console.log(searchInput);
   };
 
   return (
     <div className="Search ">
       <form onSubmit={submitHandler}>
-        {/* <input
-          className="search-bar rounded-md "
-          onChange={handleInputChange}
-          value={searchInput}
-
-          type="text"
-          placeholder="Search Anything!"
-        /> */}
+     
         <div className="relative">
           <input
             className="rounded-md px-4 w-80 py-3 "

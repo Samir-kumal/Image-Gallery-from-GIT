@@ -9,6 +9,8 @@ import { useLocation } from "react-router-dom";
 import { useDataProvider } from "../context/DataProvider";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAuth } from "../context/AuthProvider";
+import color from "../theme/theme"
+import theme from "../theme/theme";
 
 const Navbar = (props) => {
   const img = {
@@ -89,7 +91,7 @@ const Navbar = (props) => {
     // console.log(value)
   };
 
-  if (location.pathname === "/") {
+  if (location.pathname === "/" || location.pathname === "/About") {
     return (
       <nav
         className="w-full h-24 bg-[#ffffff] relative flex items-center justify-between px-2 border-b-2"
@@ -109,17 +111,15 @@ const Navbar = (props) => {
               <li ref={menuRefSub} className="hover:opacity-50">
                 <NavLink to={"/"}>HOME</NavLink>
               </li>
+             
               <li>
-                <NavLink to={"/Images"}>IMAGES</NavLink>
+                <NavLink to={"/Explore"}>EXPLORE</NavLink>
               </li>
               <li>
                 <NavLink to={"/About"}>ABOUT</NavLink>
               </li>
               <li>
-                <NavLink to={"/Explore"}>EXPLORE</NavLink>
-              </li>
-              <li>
-                <NavLink to={"/Contacts"}>CONTACTS</NavLink>
+                <NavLink to={"/Contacts"}>CONTACT</NavLink>
               </li>
               <li></li>
             </ul>
@@ -215,7 +215,7 @@ const Navbar = (props) => {
   }
   return (
     <nav
-      className="w-full h-24 bg-[#f4f1f1] relative flex items-center  justify-between px-2"
+      className={`w-full h-24 bg-primary relative flex items-center  justify-between px-2`}
       ref={menuRef}
     >
       <div className="logo">
@@ -229,7 +229,7 @@ const Navbar = (props) => {
       <Search handleSearch={handleSearch_function} />
       {isOpen && (
         <div className={`menuItems  ${isOpen ? "open" : ""}`}>
-          <ul className=" gap-12 lg:flex z-20 w-full bg-slate-300  md:inline lg:static text-white ">
+          <ul className=" gap-12 lg:flex z-20 w-full bg-slate-300  md:inline lg:static text-black ">
             <li ref={menuRefSub}>
               <NavLink to={"/"}>HOME</NavLink>
             </li>

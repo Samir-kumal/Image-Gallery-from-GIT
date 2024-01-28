@@ -8,6 +8,13 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    colors:{
+      transparent: 'transparent',
+      white: '#ffffff',
+      primary:"#ffffff",
+      black:"#000000",
+
+    }
   },
   plugins: [
     require('flowbite/plugin')
