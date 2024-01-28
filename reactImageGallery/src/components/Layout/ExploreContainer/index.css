@@ -1,6 +1,6 @@
 .main-container{
     width: 100%;
-    background: #610000;
+ 
     display: flex;
     /* place-items: center; */
     place-content: center;
@@ -14,8 +14,8 @@
     /* width: 1000px; */
 }
 .grid-box-item{
-    height: 300px;
-    width: 300px;
+    min-height: 300px;
+    min-width: 300px;
     background: #2e2323;
     display: flex;
     flex-direction: column;
