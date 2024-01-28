@@ -51,7 +51,7 @@ const SignUpPage = () => {
               <p className="text-center font-bold text-4xl">Sign Up</p>
             </div>
             <div className="my-6">
-              <button className="flex w-full justify-center rounded-3xl border-none bg-white p-1 text-black hover:bg-gray-200 sm:p-2">
+              <button className="flex w-full justify-center rounded-3xl border-none bg-gray-200 p-1 text-black hover:bg-gray-300 sm:p-2">
                 <img
                   src="https://freesvg.org/img/1534129544.png"
                   className="mr-2 w-6 object-fill"
@@ -61,7 +61,7 @@ const SignUpPage = () => {
             </div>
             <div>
               <fieldset className="border-t border-solid border-gray-600">
-                <legend className="mx-auto px-2 text-center text-sm">
+                <legend className="mx-auto px-2 text-center text-black text-sm">
                   Or Sign up via our secure system
                 </legend>
               </fieldset>
@@ -73,7 +73,7 @@ const SignUpPage = () => {
               >
                 <div>
                   <label
-                    className="mb-2.5 block font-extrabold"
+                    className="mb-2.5 block font-extrabold text-black"
                     htmlFor="firstName"
                   >
                     First Name
@@ -98,7 +98,7 @@ const SignUpPage = () => {
                 </div>
                 <div>
                   <label
-                    className="mb-2.5 block font-extrabold"
+                    className="mb-2.5 block font-extrabold text-black"
                     htmlFor="lastName"
                   >
                     Last Name
@@ -123,7 +123,7 @@ const SignUpPage = () => {
                 </div>
                 <div>
                   <label
-                    className="mb-2.5 block font-extrabold"
+                    className="mb-2.5 block font-extrabold text-black"
                     htmlFor="phoneNo"
                   >
                     Phone No
@@ -148,7 +148,7 @@ const SignUpPage = () => {
                 </div>
                 <div>
                   <label
-                    className="mb-2.5 block font-extrabold"
+                    className="mb-2.5 block font-extrabold text-black"
                     htmlFor="email"
                   >
                     Email
@@ -173,7 +173,7 @@ const SignUpPage = () => {
                 </div>
                 <div>
                   <label
-                    className="mb-2.5 block font-extrabold"
+                    className="mb-2.5 block font-extrabold text-black"
                     htmlFor="password"
                   >
                     Password
@@ -198,7 +198,7 @@ const SignUpPage = () => {
                 </div>
                 <div>
                   <label
-                    className="mb-2.5 block font-extrabold"
+                    className="mb-2.5 block font-extrabold text-black"
                     htmlFor="confirmPassword"
                   >
                     Confirm Password

@@ -39,16 +39,17 @@ const SigninPage = ({ handleShow }) => {
   });
 
   return (
-    <div className="fixed rounded-2xl h-[85%] w-[60%] z-50 flex justify-items-center">
-      <div className="relative flex  h-full w-full flex-col-reverse xl:flex-row lg:flex-row md:flex-row ">
+    <div className="bg-black/80 inset-0 fixed z-10 flex items-center justify-center">
+    <div className="fixed rounded-2xl h-[95%] w-[60%] z-50 flex justify-items-center">
+      <div className="relative flex justify-center h-full w-full flex-col-reverse xl:flex-row lg:flex-row md:flex-row ">
         <button
           onClick={() => handleShow(false)}
-          className="bg-white rounded-xl z-[60] w-8 h-8 absolute top-0 left-0 flex items-center justify-center font-bold text-2xl "
+          className="bg-white rounded-full z-[60] w-12 h-12 absolute top-0 left-0 flex items-center justify-center font-bold text-2xl "
         >
           X
         </button>
-        <div className="h-full lg:w-1/2 md:w-1/2 xl:w-1/2 w-full bg-white rounded-xl">
-          <div className="mx-auto flex h-full w-2/3 flex-col justify-center text-black xl:w-1/2">
+        <div className="h-full lg:w-full md:w-1/2 xl:w-2/3 w-full bg-white rounded-xl">
+          <div className="mx-auto flex h-full w-2/3 flex-col justify-center text-black xl:w-2/3">
             <div className=" ">
               <p className="text-2xl">Login|</p>
               <p>please login to continue|</p>
@@ -88,8 +89,8 @@ const SigninPage = ({ handleShow }) => {
                     name="email"
                     className={
                       formik.touched.email && formik.errors.email
-                        ? `inline-block w-full rounded-full bg-white border-2 border-red-600 p-2.5 leading-none text-black placeholder-indigo-300 shadow`
-                        : `inline-block w-full rounded-full bg-white p-2.5 leading-none text-black placeholder-indigo-300 shadow`
+                        ? `inline-block w-full rounded-xl bg-white border-2 border-red-600 p-2.5 leading-none text-black placeholder-indigo-300 shadow`
+                        : `inline-block w-full rounded-xl bg-white p-2.5 leading-none text-black placeholder-indigo-300 shadow`
                     }
                     placeholder="Enter Email"
                     value={formik.values.email}
@@ -113,8 +114,8 @@ const SigninPage = ({ handleShow }) => {
                     name="password"
                     className={
                       formik.touched.password && formik.errors.password
-                        ? `inline-block w-full rounded-full bg-white border-2 border-red-600 p-2.5 leading-none text-black placeholder-indigo-300 shadow`
-                        : `inline-block w-full rounded-full bg-white p-2.5 leading-none text-black placeholder-indigo-300 shadow`
+                        ? `inline-block w-full rounded-xl bg-white border-2 border-red-600 p-2.5 leading-none text-black placeholder-indigo-300 shadow`
+                        : `inline-block w-full rounded-xl bg-white p-2.5 leading-none text-black placeholder-indigo-300 shadow`
                     }
                     placeholder="Type Password"
                     value={formik.values.password}
@@ -161,6 +162,7 @@ const SigninPage = ({ handleShow }) => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };
