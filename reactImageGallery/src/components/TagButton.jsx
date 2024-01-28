@@ -14,11 +14,11 @@ const TagButton = (props) => {
     }
  }
   return (
-    <NavLink to={"/Images"}>
-    <div onClick={tagButtonClickHandler} className="h-fit w-fit px-1 hover:bg-slate-300 cursor-pointer bg-slate-200 rounded-sm mx-1">
+    // <NavLink to={"/Images"}>
+    <div onClick={tagButtonClickHandler} className="h-fit w-fit px-1 bg-black/10 hover:bg-black/20 cursor-pointer bg-slate-200 rounded-sm mx-1">
       {props.value}
     </div>
-    </NavLink>
+    // </NavLink>
   )
 }
 
