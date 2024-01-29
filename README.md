@@ -1,4 +1,5 @@
 # Image-Search-Gallery
+![Alt text](./reactImageGallery/public/ImageGallery.png)
 ### Simple Image Search Webapp that uses unsplash api to fetch images upon queries.
 ### This React Application uses reactQuery for fetching and context api for state management
 
