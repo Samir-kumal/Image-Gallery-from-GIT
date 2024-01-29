@@ -6,13 +6,13 @@ import Profilepic from "./assets/Profile.jpg";
 const About = () => {
   const img = {
     height: 280,
-    width: 280,
+    width: 300,
   };
   return (
     <>
     <Navbar/>
     <div className="flex w-full h-[100vh] items-center justify-center">
-      <div className="container w-[85%] h-[85%] flex justify-around border-dotted border rounded items-center">
+      <div className="container w-[85%] h-[85%] flex flex-col lg:flex-row  justify-around border-dotted border rounded items-center">
         <div className="p-2">
           <img
             className="rounded-xl "
@@ -23,7 +23,7 @@ const About = () => {
           />
         </div>
         <div className="w-[2px] rounded-2xl h-[75%] bg-white"></div>
-        <div className="w-1/2 translate-y-1 text-black dark:text-white ">
+        <div className="lg:w-1/2 translate-y-1 text-black dark:text-white ">
           <p className="font-normal text-lg">
             <h1 className="text-3xl">Hi,</h1> my name is Samir Kumal and I hail
             from Pokhara, Nepal. I am a web development enthusiast and have a

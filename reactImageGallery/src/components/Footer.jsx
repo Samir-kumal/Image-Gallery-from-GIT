@@ -31,7 +31,7 @@ const Footer = () => {
 
 
           </div>
-          <div className="w-1/2">
+          <div className="w-1/2 hidden lg:block md:block xl:block 2xl:block">
             <h4 className="text-lg font-semibold mb-2">Tools</h4>
             <ul>
               <li>React</li>
