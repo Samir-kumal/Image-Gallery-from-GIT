@@ -9,8 +9,7 @@ import { useLocation } from "react-router-dom";
 import { useDataProvider } from "../context/DataProvider";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAuth } from "../context/AuthProvider";
-import color from "../theme/theme"
-import theme from "../theme/theme";
+
 
 const Navbar = (props) => {
   const img = {
