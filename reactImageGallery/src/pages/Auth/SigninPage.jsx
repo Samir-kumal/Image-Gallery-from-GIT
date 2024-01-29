@@ -22,7 +22,7 @@ const SigninPage = ({ handleShow }) => {
       password: Yup.string().required("Password Required"),
     }),
     onSubmit: (values) => {
-      axios.post("http://localhost:5000/login", values).then((res) => {
+      axios.post("https://image-gallery-backend-service.onrender.com/login", values).then((res) => {
         const response = res.data;
         console.log(response.data);
 

@@ -36,7 +36,7 @@ const SignUpPage = () => {
     onSubmit: (values) => {
       alert("signed up successfully");
       axios
-        .post("http://localhost:5000/register", values)
+        .post("https://image-gallery-backend-service.onrender.com/register", values)
         .then((res) => console.log(res));
       location.href = "/";
     },
