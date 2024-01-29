@@ -58,7 +58,7 @@ const Navbar = (props) => {
       ) {
         setIsProfileMenuOpen(false);
       }
-      
+
     };
     document.addEventListener("mousedown", handler);
 
@@ -110,7 +110,7 @@ const Navbar = (props) => {
               <li ref={menuRefSub} className="hover:opacity-50">
                 <NavLink to={"/"}>HOME</NavLink>
               </li>
-             
+
               <li>
                 <NavLink to={"/Explore"}>EXPLORE</NavLink>
               </li>
@@ -118,7 +118,7 @@ const Navbar = (props) => {
                 <NavLink to={"/About"}>ABOUT</NavLink>
               </li>
               <li>
-                <NavLink to={"/Contacts"}>CONTACT</NavLink>
+                <NavLink to={"/Contact"}>CONTACT</NavLink>
               </li>
               <li></li>
             </ul>
@@ -165,7 +165,7 @@ const Navbar = (props) => {
             className="text-black border-[0.5px] p-[9px] w-24  right-16 lg:static xl:static absolute border-none bg-[#DBF0F0] "
           >
             Login
-        
+
           </button>
         )}
 
@@ -233,15 +233,13 @@ const Navbar = (props) => {
               <NavLink to={"/"}>HOME</NavLink>
             </li>
             <li>
-              <NavLink to={"/Images"}>IMAGES</NavLink>
+              <NavLink to={"/Explore"}>EXPLORE</NavLink>
             </li>
             <li>
               <NavLink to={"/About"}>ABOUT</NavLink>
             </li>
-            <li>
-              <NavLink to={"/Explore"}>EXPLORE</NavLink>
-            </li>
-        
+
+
           </ul>
         </div>
       )}

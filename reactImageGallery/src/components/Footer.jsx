@@ -3,6 +3,7 @@ import logo from "../assets/logo.png";
 import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
+import {NavLink} from "react-router-dom";
 
 const Footer = () => {
   const img = {
@@ -24,23 +25,18 @@ const Footer = () => {
         {/* Second Column */}
         <div className="w-1/3 flex justify-between p-8">
           <div className="w-1/2">
-            <h4 className="text-lg font-semibold mb-2 font-sans">About us</h4>
-            <ul>
-              <li>Pricing and solutions</li>
-              <li>Press room</li>
-              <li>Stories & Trends</li>
-              <li>Careers</li>
-              <li>Customer support</li>
-              <li>Image collections</li>
-              <li>Blog</li>
-            </ul>
+            <NavLink to={"/About"}>
+              <h4 className="text-lg font-semibold mb-2 font-sans">About Me</h4>
+            </NavLink>
+
+
           </div>
           <div className="w-1/2">
             <h4 className="text-lg font-semibold mb-2">Tools</h4>
             <ul>
-              <li>Embed</li>
-              <li>Plugins and extensions</li>
-              <li>Archival calendar</li>
+              <li>React</li>
+              <li>ReactQuery</li>
+              <li>Tailwind CSS</li>
             </ul>
           </div>
         </div>
@@ -49,15 +45,15 @@ const Footer = () => {
 
         {/* Third Column */}
         <div className="w-1/3 p-8 ">
-          <h4 className="text-lg font-semibold mb-4">Follow Us</h4>
+          <h4 className="text-lg font-semibold mb-4">Follow Me</h4>
           <div className="flex space-x-4">
-            <a href="#" className="text-black">
+            <a target={"_blank"} href="https://www.facebook.com/sameer.kumal.52/" className="text-black">
               <FacebookRoundedIcon />
             </a>
-            <a href="#" className="text-black ">
+            <a target={"_blank"} href="https://twitter.com" className="text-black ">
               <TwitterIcon />
             </a>
-            <a href="#" className="text-black">
+            <a target={"_blank"} href="https://www.instagram.com/samer_kumal/" className="text-black">
               <InstagramIcon />
             </a>
             {/* Add more social media icons here */}
