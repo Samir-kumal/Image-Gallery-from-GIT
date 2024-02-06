@@ -7,7 +7,7 @@ const About = () => {
   const img = {
     height: 280,
     width: 300,
-  };
+  }; 
   return (
     <>
     <Navbar/>

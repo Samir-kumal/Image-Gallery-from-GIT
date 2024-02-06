@@ -9,6 +9,7 @@ import Content from "./components/Content";
 import ExplorePage from "./pages/ExplorePage";
 import { useDataProvider } from "./context/DataProvider";
 import SignUpPage from "./pages/Auth/SignUpPage";
+import ScrollToTop from "./helper/ScrollToTop";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -55,6 +56,7 @@ function App() {
             <Route path="/Signup" element={<SignUpPage />} />
           </Routes>
           <Footer />
+          <ScrollToTop/>
         </>
       )}
     </BrowserRouter>
