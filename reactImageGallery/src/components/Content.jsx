@@ -48,21 +48,22 @@ const content = ({ data, tagValueHandler }) => {
     a.click();
   };
 
+  const handleResize = () => {
+    const width = window.innerWidth;
+
+    if (width < 768) {
+      setColumnCount(1); // Small screen, 1 column
+    } else if (width >= 768 && width < 1024) {
+      setColumnCount(2); // Medium screen, 2 columns
+    } else {
+      setColumnCount(3); // Large screen, 3 columns
+    }
+
+    setWindowWidth(width);
+  };
+
+
   useEffect(() => {
-    const handleResize = () => {
-      const width = window.innerWidth;
-
-      if (width < 768) {
-        setColumnCount(1); // Small screen, 1 column
-      } else if (width >= 768 && width < 1024) {
-        setColumnCount(2); // Medium screen, 2 columns
-      } else {
-        setColumnCount(3); // Large screen, 3 columns
-      }
-
-      setWindowWidth(width);
-    };
-
     handleResize();
 
     // Attach the event listener to update the state on window resize

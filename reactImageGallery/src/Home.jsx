@@ -11,7 +11,7 @@ import { LoadingSpinner } from "./components/common/LoadingSpinner";
 const Home = () => {
   // const [searchInput, setSearchInput] = useState('')
   const [isError, setIsError] = useState();
-  const { data, search, isLoading, handleSearch } =
+  const { data ,search, isLoading, handleSearch } =
     useDataProvider();
   const { userData } = useAuth();
   const [loading, setLoading] = useState(true);
@@ -36,7 +36,7 @@ const Home = () => {
   };
   const [show, setShow] = useState(false);
 
-  console.log("home page rendered", data?.pages[0].length, isLoading)
+  console.log("home page rendered", data?.pages[0].length, isLoading, "Search value",search);
   return (
     <>
       <Navbar handleShow={setShow} userData={userData} />

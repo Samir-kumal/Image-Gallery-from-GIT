@@ -8,25 +8,12 @@ import React, {
 } from "react";
 import SearchService from "../services/SearchService";
 import { useInfiniteQuery } from "react-query";
+import useFetch from "../hooks/useFetch";
 const DataContext = createContext(null);
 export const useDataProvider = () => useContext(DataContext);
 
 const DataProvider = ({ children }) => {
-  const [search, setSearch] = useState("Random");
-  const [page, setPage] = useState(1);
-  const { data, error, isLoading, isFetching, fetchMore, canFetchMore } =
-    useInfiniteQuery({
-      queryKey: [ search],
-      queryFn: () => {
-        return SearchService.Search(search, page);
-      },
-      keepPreviousData: true,
-      getNextPageParam: (lastPage, pages) => {
-        const nextPage = lastPage.length === 30 ? pages.length + 1 : undefined;
-        return nextPage;
-      },
-    });
-
+  const {data, search, setSearch, isLoading} = useFetch("Random", 30);
 
   const handleSearch = (value) => {
     setSearch(value);
@@ -43,7 +30,7 @@ const DataProvider = ({ children }) => {
       isLoading,
     
     }),
-    [search, page, data, isLoading]
+    [ search,data, isLoading]
   );
 
   return (
