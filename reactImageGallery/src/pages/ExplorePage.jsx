@@ -6,8 +6,8 @@ const ExplorePage = () => {
   return (
     <>
     <Navbar/>
-      {/* <ExploreContainerLayout/> */}
-      <CommingSoon/>
+      <ExploreContainerLayout/>
+      {/* <CommingSoon/> */}
     </>
   )
 }
